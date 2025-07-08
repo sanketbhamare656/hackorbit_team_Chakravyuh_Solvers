@@ -1,4 +1,5 @@
-
+{% extends "base.html" %}
+{% block content %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -933,7 +934,7 @@
 
 <body>
     <!-- Header -->
-    <header>
+    <!-- <header>
         <div class="container">
             <nav>
                 <a href="#" class="logo">
@@ -951,7 +952,7 @@
                 </button>
             </nav>
         </div>
-    </header>
+    </header> -->
 
     <!-- Hero Section -->
     <section class="hero" id="home">
@@ -990,7 +991,7 @@
                 </div>
                 <div class="hero-image">
                     <div class="hero-image-inner">
-                        <img src="{{ url_for('static', filename='img/ai-security.png') }}" alt="AI Security Illustration">
+                        <img src="{{ url_for('static', filename='img/icon3d-removebg-preview.png') }}" alt="AI Security Illustration">
                     </div>
                 </div>
             </div>
@@ -1115,7 +1116,15 @@
                         <p>AI/ML Specialist</p>
                         <p class="team-bio">B.Tech in Computer Science with specialization in Cloud Technology and Information Security. Focused on developing intelligent detection algorithms.</p>
                     </div>
+                    <div class="team-social">
+                        <a href="https://github.com/shivamdhumal77" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/shivam-dhumal/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" target="_blank"><i class="fas fa-globe"></i></a>
+                    </div>
+                </div>
+                
                     
+                
             </div>
         </div>
     </section>
@@ -1295,3 +1304,4 @@
 </body>
 
 </html>
+{% endblock %}
