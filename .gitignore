@@ -1,0 +1,20 @@
+cat > .gitignore << EOF
+# Ignore virtual environment
+phishnet/
+
+# Ignore database
+instance/
+*.db
+
+# Ignore models, cache, and temp files
+model/
+*.pkl
+*.json
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Environment files
+.env
+EOF
