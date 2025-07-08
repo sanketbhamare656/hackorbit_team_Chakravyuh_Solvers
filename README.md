@@ -61,18 +61,32 @@ PhishNet is a web-based tool designed to detect and warn users about suspicious 
    
 
 ---
+## ✅ Checkpoint 3 Progress
 
-## 🔜 Upcoming Plan (Post Checkpoint 3)
+### 1. ✅ **First Feature Implemented: URL Scanning**
+- Users can now scan any URL to check for phishing indicators or suspicious activity.
+- Fully integrated frontend and backend processing pipeline.
 
-- Finalize our **first working feature** 
-- Optimize frontend and backend interaction.
+### 2. ✅ **UI Enhancements**
+- Updated `index.html` for smoother input and user flow.
+- Created a new, dedicated UI page `url_scanner.html` with particle background, console-style scanning logs, and animated trust score display.
+
+### 3. ✅ **Backend Enhancements**
+- Updated `app.py` for routing and scanning logic.
+- Added key backend modules:
+  - `controller.py` — handles scanning logic
+  - `onetimescript.py` — supports domain/IP analysis and preprocessing
+- Integrated trained dataset for phishing detection.
 
 ---
 
 
-## Little Bit Wait for our unique features 😄
+## ⏳ Yes, We Need a Bit More Time...
 
-- We're working on adding our project's unique feature — stay tuned for something exciting! 
+We know you’re waiting for our **unique feature**...  
+And honestly — *so are we!* 😅
+
+It’s still in the works 🛠️ — a few bugs to squash, a few features to polish, and a whole lot of caffeine to finish it off 
 ---
 
 

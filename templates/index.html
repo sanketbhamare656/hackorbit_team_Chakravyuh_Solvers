@@ -9,7 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PhishNet - AI-Powered Phishing Detection</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --primary: #00f0ff;
@@ -47,7 +48,10 @@
             padding: 100px 0;
         }
 
-        h1, h2, h3, h4 {
+        h1,
+        h2,
+        h3,
+        h4 {
             font-weight: 700;
             line-height: 1.2;
         }
@@ -309,9 +313,11 @@
             0% {
                 transform: translateY(0px) rotateY(-5deg);
             }
+
             50% {
                 transform: translateY(-20px) rotateY(5deg);
             }
+
             100% {
                 transform: translateY(0px) rotateY(-5deg);
             }
@@ -321,9 +327,11 @@
             0% {
                 transform: translate(0, 0) rotate(0deg);
             }
+
             50% {
                 transform: translate(50px, 50px) rotate(180deg);
             }
+
             100% {
                 transform: translate(0, 0) rotate(360deg);
             }
@@ -388,6 +396,7 @@
             0% {
                 left: -50%;
             }
+
             100% {
                 left: 150%;
             }
@@ -447,13 +456,12 @@
         }
 
         .about-content {
-            display: flex;
-            align-items: center;
-            gap: 60px;
+            text-align: center;
         }
 
         .about-text {
-            flex: 1;
+            margin: 0 auto;
+            max-width: 800px;
         }
 
         .about-text p {
@@ -827,7 +835,7 @@
             .hero h1 {
                 font-size: 54px;
             }
-            
+
             .hero p {
                 font-size: 18px;
             }
@@ -965,7 +973,8 @@
             <div class="hero-content">
                 <div class="hero-text">
                     <h1>AI-Powered <span class="gradient-text">Phishing Detection</span></h1>
-                    <p>Protect your digital assets with our advanced machine learning algorithms that detect and prevent phishing attempts in real-time. Stay one step ahead of cybercriminals.</p>
+                    <p>Protect your digital assets with our advanced machine learning algorithms that detect and prevent
+                        phishing attempts in real-time. Stay one step ahead of cybercriminals.</p>
                     <div class="hero-buttons">
                         <a href="{{ url_for('url_service') }}" class="btn btn-primary">
                             <i class="fas fa-rocket"></i> Try Live Demo
@@ -991,7 +1000,8 @@
                 </div>
                 <div class="hero-image">
                     <div class="hero-image-inner">
-                        <img src="{{ url_for('static', filename='img/icon3d-removebg-preview.png') }}" alt="AI Security Illustration">
+                        <img src="{{ url_for('static', filename='img/icon3d-removebg-preview.png') }}"
+                            alt="AI Security Illustration" style="transform: scaleX(-1);">
                     </div>
                 </div>
             </div>
@@ -1008,7 +1018,8 @@
                         <i class="fas fa-search"></i>
                     </div>
                     <h3>Real-time URL Analysis</h3>
-                    <p>Our advanced algorithms scan URLs in milliseconds to detect phishing attempts, malicious scripts, and suspicious patterns before they can cause harm.</p>
+                    <p>Our advanced algorithms scan URLs in milliseconds to detect phishing attempts, malicious scripts,
+                        and suspicious patterns before they can cause harm.</p>
                     <a href="{{ url_for('url_service') }}" class="feature-link">
                         Try it now <i class="fas fa-arrow-right"></i>
                     </a>
@@ -1018,19 +1029,10 @@
                         <i class="fas fa-robot"></i>
                     </div>
                     <h3>AI Cyber Assistant</h3>
-                    <p>Get instant answers to your cybersecurity questions from our trained AI model that understands the latest threats and protection techniques.</p>
+                    <p>Get instant answers to your cybersecurity questions from our trained AI model that understands
+                        the latest threats and protection techniques.</p>
                     <a href="{{ url_for('chat') }}" class="feature-link">
                         Chat with AI <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-sms"></i>
-                    </div>
-                    <h3>SMS Scam Detection</h3>
-                    <p>Analyze text messages for phishing attempts with our NLP-powered system that identifies suspicious links and social engineering tactics.</p>
-                    <a href="{{ url_for('sms') }}" class="feature-link">
-                        Analyze SMS <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
                 <div class="feature-card">
@@ -1038,7 +1040,8 @@
                         <i class="fas fa-newspaper"></i>
                     </div>
                     <h3>Security Newsletter</h3>
-                    <p>Stay updated with the latest cybersecurity threats, trends, and protection strategies curated by our team of experts.</p>
+                    <p>Stay updated with the latest cybersecurity threats, trends, and protection strategies curated by
+                        our team of experts.</p>
                     <a href="{{ url_for('newsletter') }}" class="feature-link">
                         Subscribe now <i class="fas fa-arrow-right"></i>
                     </a>
@@ -1048,7 +1051,8 @@
                         <i class="fas fa-chrome"></i>
                     </div>
                     <h3>Browser Extension</h3>
-                    <p>Get real-time protection as you browse with our lightweight extension that warns you before visiting dangerous websites.</p>
+                    <p>Get real-time protection as you browse with our lightweight extension that warns you before
+                        visiting dangerous websites.</p>
                     <a href="{{ url_for('extension') }}" class="feature-link">
                         Get extension <i class="fas fa-arrow-right"></i>
                     </a>
@@ -1058,7 +1062,8 @@
                         <i class="fas fa-chart-line"></i>
                     </div>
                     <h3>Threat Dashboard</h3>
-                    <p>Visualize cyber threats in real-time with our interactive dashboard that shows global phishing activity and attack patterns.</p>
+                    <p>Visualize cyber threats in real-time with our interactive dashboard that shows global phishing
+                        activity and attack patterns.</p>
                     <a href="{{ url_for('extension') }}" class="feature-link">
                         Coming soon <i class="fas fa-clock"></i>
                     </a>
@@ -1071,17 +1076,20 @@
     <section class="about" id="about">
         <div class="container">
             <h2 class="section-title">About <span class="gradient-text">PhishNet</span></h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>PhishNet was born out of a hackathon challenge to combat the rising tide of sophisticated phishing attacks that traditional security measures struggle to detect. Our team of cybersecurity enthusiasts and machine learning experts came together to create a solution that leverages cutting-edge AI to stay ahead of evolving threats.</p>
-                    <p>What sets us apart is our multi-layered detection approach that combines URL analysis, content inspection, behavioral patterns, and real-time threat intelligence to provide comprehensive protection against phishing attempts.</p>
-                    <p>Our mission is to make advanced cybersecurity accessible to everyone, from individual users to large enterprises, without compromising on performance or usability.</p>
+            <div class="about-content" style="text-align: center;">
+                <div class="about-text" style="margin: 0 auto; max-width: 800px;">
+                    <p>PhishNet was born out of a hackathon challenge to combat the rising tide of sophisticated
+                        phishing attacks that traditional security measures struggle to detect. Our team of
+                        cybersecurity enthusiasts and machine learning experts came together to create a solution that
+                        leverages cutting-edge AI to stay ahead of evolving threats.</p>
+                    <p>What sets us apart is our multi-layered detection approach that combines URL analysis, content
+                        inspection, behavioral patterns, and real-time threat intelligence to provide comprehensive
+                        protection against phishing attempts.</p>
+                    <p>Our mission is to make advanced cybersecurity accessible to everyone, from individual users to
+                        large enterprises, without compromising on performance or usability.</p>
                     <a href="{{ url_for('about') }}" class="btn btn-primary" style="margin-top: 30px;">
                         <i class="fas fa-info-circle"></i> Learn More
                     </a>
-                </div>
-                <div class="about-image">
-                    <img src="{{ url_for('static', filename='img/cyber-security-concept.jpg') }}" alt="Cybersecurity Concept">
                 </div>
             </div>
         </div>
@@ -1099,12 +1107,13 @@
                     <div class="team-info">
                         <h3>Sanket Bhamare</h3>
                         <p>Lead Developer & Security Architect</p>
-                        <p class="team-bio">B.Tech in Computer Science with specialization in Cyber Security and Forensics at Sandip University. Passionate about building secure systems.</p>
+                        <p class="team-bio">B.Tech in Computer Science with specialization in Cyber Security and
+                            Forensics at Sandip University. Passionate about building secure systems.</p>
                     </div>
                     <div class="team-social">
-                        <a href="https://github.com/sanketbhamare656" target="_blank"><i class="fab fa-github"></i></a>
-                        <a href="https://www.linkedin.com/in/bhamare-sanket/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://sanketbhamare656.github.io/sanketportfolio/" target="_blank"><i class="fas fa-globe"></i></a>
+                        <a href="" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="" target="_blank"><i class="fas fa-globe"></i></a>
                     </div>
                 </div>
                 <div class="team-card">
@@ -1114,65 +1123,28 @@
                     <div class="team-info">
                         <h3>Shivam Dhumal</h3>
                         <p>AI/ML Specialist</p>
-                        <p class="team-bio">B.Tech in Computer Science with specialization in Cloud Technology and Information Security. Focused on developing intelligent detection algorithms.</p>
+                        <p class="team-bio">B.Tech in Computer Science with specialization in Cloud Technology and
+                            Information Security. Focused on developing intelligent detection algorithms.</p>
                     </div>
                     <div class="team-social">
-                        <a href="https://github.com/shivamdhumal77" target="_blank"><i class="fab fa-github"></i></a>
-                        <a href="https://www.linkedin.com/in/shivam-dhumal/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="" target="_blank"><i class="fab fa-linkedin"></i></a>
                         <a href="#" target="_blank"><i class="fas fa-globe"></i></a>
                     </div>
                 </div>
-                
-                    
-                
+
+
             </div>
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials" id="testimonials">
-        <div class="container">
-            <h2 class="section-title">Industry <span class="gradient-text">Recognition</span></h2>
-            <div class="testimonial-grid">
-                <div class="testimonial-card">
-                    <p class="testimonial-text">"PhishNet represents the next generation of phishing protection. Their approach to combining multiple detection methods with machine learning sets a new standard in cybersecurity."</p>
-                    <div class="testimonial-author">
-                        <div class="author-image">KM</div>
-                        <div class="author-info">
-                            <h4>Kevin Mitnick</h4>
-                            <p>Cybersecurity Expert & Author</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <p class="testimonial-text">"In our testing, PhishNet detected 98.7% of zero-day phishing attempts that bypassed traditional security solutions. This level of protection is remarkable."</p>
-                    <div class="testimonial-author">
-                        <div class="author-image">MC</div>
-                        <div class="author-info">
-                            <h4>Michael Chen</h4>
-                            <p>Security Director, FinSecure</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <p class="testimonial-text">"The implementation was seamless and the results impressive. PhishNet has significantly reduced our phishing incident response workload while improving protection."</p>
-                    <div class="testimonial-author">
-                        <div class="author-image">ER</div>
-                        <div class="author-info">
-                            <h4>Emily Rodriguez</h4>
-                            <p>CTO, HealthData Inc.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- CTA Section -->
     <section class="cta-section" id="contact">
         <div class="container">
             <h2>Ready to Transform Your Cybersecurity?</h2>
-            <p>Join thousands of users and organizations who trust PhishNet to protect their digital assets from sophisticated phishing attacks.</p>
+            <p>Join thousands of users and organizations who trust PhishNet to protect their digital assets from
+                sophisticated phishing attacks.</p>
             <div style="display: flex; gap: 20px; justify-content: center;">
                 <a href="{{ url_for('url_service') }}" class="btn btn-primary" style="margin-top: 20px;">
                     <i class="fas fa-rocket"></i> Try Live Demo
@@ -1186,57 +1158,19 @@
 
     <!-- Footer -->
     <footer>
-        <div class="container">
+        <div class="container" style="text-align: center;">
             <div class="footer-content">
                 <div class="footer-column">
-                    <div class="footer-logo">
+                    <div class="footer-logo" style="margin-bottom: 10px;">
                         <i class="fas fa-shield-alt"></i> PHISHNET
                     </div>
-                    <div class="footer-about">
-                        <p>Advanced AI-powered phishing detection and prevention platform designed to protect users and organizations from evolving cyber threats.</p>
-                    </div>
-                    <div class="footer-social">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#team">Team</a></li>
-                        <li><a href="#testimonials">Testimonials</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Services</h3>
-                    <ul class="footer-links">
-                        <li><a href="{{ url_for('url_service') }}">URL Scanner</a></li>
-                        <li><a href="{{ url_for('chat') }}">Cyber Assistant</a></li>
-                        <li><a href="{{ url_for('sms') }}">SMS Analyzer</a></li>
-                        <li><a href="{{ url_for('newsletter') }}">Security Newsletter</a></li>
-                        <li><a href="{{ url_for('extension') }}">Browser Extension</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Resources</h3>
-                    <ul class="footer-links">
-                        <li><a href="https://www.linkedin.com/pulse/phishing-unmasked-how-awareness-ai-protecting-users-from-bhamare-niade/?trackingId=q%2FqrNu02JAsSjprJLPyP%2Bg%3D%3D" target="_blank">Research Paper</a></li>
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">API Access</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Support</a></li>
-                    </ul>
+                    <p style="margin-top: 10px;">This project is built during the HackOrbit 2025 hackathon</p>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
             <div class="container">
-                <p class="copyright">&copy; 2025 PhishNet. All Rights Reserved. | Developed by <a href="https://www.linkedin.com/in/bhamare-sanket/" target="_blank">Sanket Bhamare</a> and Team</p>
+                <p class="copyright">&copy; 2025 PhishNet. All Rights Reserved. | Developed by Sanket Bhamare and Team</p>
             </div>
         </div>
     </footer>
@@ -1245,26 +1179,26 @@
         // Mobile menu toggle
         const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
         const navLinks = document.querySelector('.nav-links');
-        
+
         mobileMenuBtn.addEventListener('click', () => {
             navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
         });
 
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                
+
                 const targetId = this.getAttribute('href');
                 if (targetId === '#') return;
-                
+
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
                     window.scrollTo({
                         top: targetElement.offsetTop - 80,
                         behavior: 'smooth'
                     });
-                    
+
                     // Close mobile menu if open
                     if (window.innerWidth <= 768) {
                         navLinks.style.display = 'none';
@@ -1276,11 +1210,11 @@
         // Animation on scroll
         const animateOnScroll = () => {
             const elements = document.querySelectorAll('.feature-card, .team-card, .testimonial-card');
-            
+
             elements.forEach(element => {
                 const elementPosition = element.getBoundingClientRect().top;
                 const screenPosition = window.innerHeight / 1.3;
-                
+
                 if (elementPosition < screenPosition) {
                     element.style.opacity = '1';
                     element.style.transform = 'translateY(0)';
