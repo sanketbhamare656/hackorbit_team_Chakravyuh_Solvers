@@ -79,11 +79,17 @@ PhishNet is a web-based tool designed to detect and warn users about suspicious 
 - Integrated trained dataset for phishing detection.
 
 ---
+## ✅ Checkpoint 4 – UI Improvements
 
+In this checkpoint, we focused on enhancing the **user interface and user experience** 
 
-## ⏳ Yes, We Need a Bit More Time...
+### ✨ Updates Made:
+- improve and fix UI in `url_service.html`
+- Minor bug fixes in `index.html`
 
-We know you’re waiting for our **unique feature**...  
+## ⏳ In Next Check Point Commit our **unique feature**
+
+We know you’re waiting for our **unique feature**...  (kya matlab nahi ban raha hei ......)
 And honestly — *so are we!* 😅
 
 It’s still in the works 🛠️ — a few bugs to squash, a few features to polish, and a whole lot of caffeine to finish it off 

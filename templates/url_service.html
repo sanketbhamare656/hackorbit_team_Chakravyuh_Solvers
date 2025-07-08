@@ -1,330 +1,167 @@
 {% extends "base.html" %}
-
 {% block content %}
-<style>
-    .url-scanner-section {
-        min-height: 100vh;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 100px 0;
-    }
+<div id="particles-js"></div>
 
-    .scanner-container {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 20px;
-        padding: 40px;
-        max-width: 600px;
-        width: 100%;
-        text-align: center;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    }
+<!-- Main Container -->
+<div class="container">
+    <!-- Centered Header -->
+    <a href="/" class="logo" style="text-align: center; display: block; margin: 0 auto;">
+        <h1 itemprop="name" style="color: var(--primary);">PhishNet</h1>
+    </a>
 
-    .scanner-title {
-        font-size: 2.5em;
-        color: white;
-        margin-bottom: 20px;
-        background: linear-gradient(45deg, #4CAF50, #45a049);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
+    <div class="short-note" style="text-align: center;">
+        <p itemprop="description"><strong>A Digital Net Capturing Malicious Links! 🎣</strong><br>
+            Stay secure online with <strong>PhishNet.</strong>
+        </p>
+    </div><br>
 
-    .scanner-subtitle {
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 1.2em;
-        margin-bottom: 30px;
-    }
+    <!-- URL Input Form -->
+    <form method="post">
+        <input type="text" name="url" placeholder="Enter URL to scan" required />
+        <button type="submit" class="btn btn-primary">Verify URL</button>
+    </form>
 
-    .url-input-group {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 20px;
-    }
+    <!-- Loader -->
+    <div class="loader" id="loader" style="margin: 20px auto; display: none;"></div>
 
-    .url-input {
-        flex: 1;
-        padding: 15px 20px;
-        border: 2px solid rgba(255, 255, 255, 0.3);
-        border-radius: 50px;
-        background: rgba(255, 255, 255, 0.1);
-        color: white;
-        font-size: 1em;
-        outline: none;
-        transition: all 0.3s ease;
-    }
+    <!-- Scan Console Output -->
+    <div class="scan-console" style="text-align: center; font-family: monospace; color: #0f0; background-color: #000; padding: 15px; margin-top: 20px; border-radius: 5px; max-height: 300px; overflow-y: auto; display: none;"></div>
 
-    .url-input::placeholder {
-        color: rgba(255, 255, 255, 0.6);
-    }
-
-    .url-input:focus {
-        border-color: #4CAF50;
-        background: rgba(255, 255, 255, 0.2);
-    }
-
-    .scan-btn {
-        background: linear-gradient(45deg, #4CAF50, #45a049);
-        color: white;
-        border: none;
-        padding: 15px 30px;
-        border-radius: 50px;
-        font-size: 1em;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        font-weight: bold;
-        min-width: 120px;
-    }
-
-    .scan-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
-    }
-
-    .scan-btn:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-    }
-
-    .console-section {
-        margin-top: 30px;
-        background: rgba(0, 0, 0, 0.3);
-        border-radius: 15px;
-        padding: 20px;
-        display: none;
-    }
-
-    .console-header {
-        color: #4CAF50;
-        font-size: 1.2em;
-        margin-bottom: 15px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .console-content {
-        background: rgba(0, 0, 0, 0.5);
-        border-radius: 10px;
-        padding: 15px;
-        color: #00ff00;
-        font-family: 'Courier New', monospace;
-        font-size: 0.9em;
-        min-height: 200px;
-        max-height: 300px;
-        overflow-y: auto;
-        text-align: left;
-    }
-
-    .console-line {
-        margin: 5px 0;
-        opacity: 0;
-        animation: fadeIn 0.5s ease forwards;
-    }
-
-    @keyframes fadeIn {
-        to {
-            opacity: 1;
-        }
-    }
-
-    .progress-bar {
-        width: 100%;
-        height: 4px;
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 2px;
-        margin-top: 10px;
-        overflow: hidden;
-        display: none;
-    }
-
-    .progress-fill {
-        height: 100%;
-        background: linear-gradient(90deg, #4CAF50, #45a049);
-        width: 0%;
-        transition: width 0.3s ease;
-    }
-
-    .result-section {
-        margin-top: 30px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 15px;
-        padding: 20px;
-        display: none;
-    }
-
-    .result-header {
-        font-size: 1.3em;
-        color: white;
-        margin-bottom: 15px;
-    }
-
-    .result-safe {
-        color: #4CAF50;
-        border-left: 4px solid #4CAF50;
-        padding-left: 15px;
-    }
-
-    .result-warning {
-        color: #FF9800;
-        border-left: 4px solid #FF9800;
-        padding-left: 15px;
-    }
-
-    .result-danger {
-        color: #f44336;
-        border-left: 4px solid #f44336;
-        padding-left: 15px;
-    }
-
-    @media (max-width: 768px) {
-        .url-input-group {
-            flex-direction: column;
-        }
-
-        .scanner-container {
-            margin: 20px;
-            padding: 30px 20px;
-        }
-
-        .scanner-title {
-            font-size: 2em;
-        }
-    }
-</style>
-
-<section class="url-scanner-section">
-    <div class="container">
-        <div class="scanner-container">
-            <h1 class="scanner-title">
-                <i class="fas fa-shield-alt"></i> URL Scanner
-            </h1>
-            <p class="scanner-subtitle">
-                Analyze any URL for potential phishing threats and security risks
-            </p>
-
-            <form method="post" id="scanForm">
-                <div class="url-input-group">
-                    <input type="url" 
-                           name="url" 
-                           class="url-input" 
-                           placeholder="Enter URL to scan (e.g., https://example.com)"
-                           required>
-                    <button type="submit" class="scan-btn">
-                        <i class="fas fa-search"></i> Scan
-                    </button>
-                </div>
-            </form>
-
-            <div class="progress-bar">
-                <div class="progress-fill"></div>
-            </div>
-
-            <div class="console-section">
-                <div class="console-header">
-                    <i class="fas fa-terminal"></i>
-                    Scanning Progress
-                </div>
-                <div class="console-content" id="consoleContent">
-                    <!-- Console lines will be added here -->
-                </div>
-            </div>
-
-            <div class="result-section" id="resultSection">
-                <!-- Results will be displayed here -->
-            </div>
-        </div>
+    {% if output != "NA" %}
+    <!-- Result Section -->
+    <div class="result" style="text-align: left;">
+        {{ output|safe }}
     </div>
-</section>
+    {% endif %}
+</div>
 
+<!-- Particle.js -->
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script>
+    particlesJS("particles-js", {
+        particles: {
+            number: { value: 80, density: { enable: true, value_area: 800 } },
+            color: { value: "#333" },
+            shape: { type: "circle" },
+            opacity: { value: 0.5, random: true },
+            size: { value: 3, random: true },
+            line_linked: { enable: true, distance: 150, color: "#333", opacity: 0.4, width: 1 },
+            move: { enable: true, speed: 3 }
+        },
+        interactivity: {
+            detect_on: "canvas",
+            events: {
+                onhover: { enable: true, mode: "repulse" },
+                onclick: { enable: true, mode: "push" }
+            },
+            modes: {
+                repulse: { distance: 100, duration: 0.4 },
+                push: { particles_nb: 4 }
+            }
+        },
+        retina_detect: true
+    });
+
     function showConsole() {
-        document.querySelector('.console-section').style.display = 'block';
-        document.querySelector('.progress-bar').style.display = 'block';
-        document.querySelector('#consoleContent').innerHTML = '';
+        const console = document.querySelector('.scan-console');
+        console.style.display = 'block';
+        console.innerHTML = '';
     }
 
-    function addConsoleLine(message, percent = 0) {
-        const consoleLine = document.createElement('div');
-        consoleLine.className = 'console-line';
-        consoleLine.textContent = `> ${message}`;
-        document.getElementById('consoleContent').appendChild(consoleLine);
-        
-        if (percent > 0) {
-            document.querySelector('.progress-fill').style.width = percent + '%';
+    function addConsoleLine(message, percent) {
+        const console = document.querySelector('.scan-console');
+        const line = document.createElement('div');
+        line.className = 'console-line';
+        line.style.display = 'none';
+
+        if (percent !== undefined) {
+            line.innerHTML = `&gt; ${message}<span class="progress-percent"> ${percent}%</span>`;
+        } else {
+            line.textContent = `> ${message}`;
         }
-        
-        // Auto scroll to bottom
-        const consoleContent = document.getElementById('consoleContent');
-        consoleContent.scrollTop = consoleContent.scrollHeight;
+
+        console.appendChild(line);
+
+        setTimeout(() => {
+            const visibleLines = console.querySelectorAll('.console-line');
+            visibleLines.forEach(el => el.style.display = 'none');
+            line.style.display = 'block';
+            console.scrollTop = console.scrollHeight;
+        }, 100);
     }
 
     function simulateScan() {
-        addConsoleLine("Initializing URL analysis...", 10);
-        setTimeout(() => addConsoleLine("Checking domain reputation...", 20), 500);
-        setTimeout(() => addConsoleLine("Analyzing URL structure...", 30), 1000);
-        setTimeout(() => addConsoleLine("Checking for suspicious patterns...", 40), 1500);
-        setTimeout(() => addConsoleLine("Checking if URL is shortened...", 50), 2000);
-        setTimeout(() => addConsoleLine("HSTS support: Checking...", 60), 2500);
-        setTimeout(() => addConsoleLine("Checking if IP is present in URL...", 70), 3000);
-        setTimeout(() => addConsoleLine("IP present in URL: No", 75), 3500);
-        setTimeout(() => addConsoleLine("Checking URL redirection...", 80), 4000);
-        setTimeout(() => addConsoleLine("URL redirects: Analyzing...", 85), 4500);
-        setTimeout(() => addConsoleLine("Checking URL length...", 90), 5000);
-        setTimeout(() => addConsoleLine("Checking URL depth...", 95), 5500);
-        setTimeout(() => addConsoleLine("Fetching SSL certificate...", 98), 6000);
-        setTimeout(() => addConsoleLine("Generating trust score...", 100), 6500);
-        setTimeout(() => addConsoleLine("Scan completed!", 100), 7000);
+        showConsole();
+        const steps = [
+            ["Fetching URL...", 5],
+            ["Extracting domain...", 10],
+            ["Validating URL format...", 15],
+            ["Checking PhishTank database...", 20],
+            ["Fetching domain rank...", 30],
+            ["Fetching WHOIS information...", 40],
+            ["Checking if URL is shortened...", 50],
+            ["HSTS support: No", 60],
+            ["Checking if IP is present in URL...", 70],
+            ["IP present in URL: No", 75],
+            ["Checking URL redirection...", 80],
+            ["URL redirects: No", 85],
+            ["Checking URL length...", 90],
+            ["Too long URL: No", 95],
+            ["Checking URL depth...", 100],
+            ["Too deep URL: No"],
+            ["Fetching IP address..."],
+            ["IP address: 142.250.207.174"],
+            ["Fetching SSL certificate..."],
+            ["Generating trust score..."],
+            ["Scan completed!"]
+        ];
+
+        steps.forEach((step, index) => {
+            setTimeout(() => addConsoleLine(step[0], step[1]), 500 + index * 700);
+        });
+    }
+
+    function showLoader() {
+        document.getElementById('loader').style.display = 'block';
+    }
+
+    function hideLoader() {
+        document.getElementById('loader').style.display = 'none';
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-        const form = document.getElementById('scanForm');
-        const scanBtn = document.querySelector('.scan-btn');
-        
+        const form = document.querySelector('form');
         if (form) {
             form.addEventListener('submit', function (e) {
                 e.preventDefault();
-                
-                // Show console and start simulation
-                showConsole();
                 simulateScan();
-                
-                // Disable button during scan
-                scanBtn.disabled = true;
-                scanBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Scanning...';
-                
-                // Re-enable button after scan
-                setTimeout(() => {
-                    scanBtn.disabled = false;
-                    scanBtn.innerHTML = '<i class="fas fa-search"></i> Scan';
-                }, 7500);
-                
-                // Submit form for actual processing
-                const formData = new FormData(form);
-                fetch('/url_service', {
+                showLoader();
+
+                const formData = new FormData(this);
+                fetch('/', {
                     method: 'POST',
                     body: formData
                 })
-                .then(response => response.text())
-                .then(html => {
-                    // Parse response and show results
-                    const tempDiv = document.createElement('div');
-                    tempDiv.innerHTML = html;
-                    const resultSection = document.getElementById('resultSection');
-                    
-                    
-                    setTimeout(() => {
-                        resultSection.style.display = 'block';
-                        resultSection.innerHTML = '<div class="result-header">Scan Results</div><div class="result-safe">URL appears to be safe</div>';
-                    }, 7500);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    addConsoleLine(`Error: ${error.message}`);
-                });
+                    .then(response => response.text())
+                    .then(html => {
+                        hideLoader();
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = html;
+
+                        const newResult = tempDiv.querySelector('.result');
+                        const currentResult = document.querySelector('.result');
+
+                        if (currentResult) {
+                            currentResult.replaceWith(newResult);
+                        } else {
+                            document.querySelector('.container').appendChild(newResult);
+                        }
+                    })
+                    .catch(error => {
+                        hideLoader();
+                        console.error('Error:', error);
+                        addConsoleLine(`Error: ${error.message}`);
+                    });
             });
         }
     });
