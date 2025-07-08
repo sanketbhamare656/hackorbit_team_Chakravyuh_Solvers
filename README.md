@@ -87,12 +87,22 @@ In this checkpoint, we focused on enhancing the **user interface and user experi
 - improve and fix UI in `url_service.html`
 - Minor bug fixes in `index.html`
 
-## ⏳ In Next Check Point Commit our **unique feature**
 
-We know you’re waiting for our **unique feature**...  (kya matlab nahi ban raha hei ......)
-And honestly — *so are we!* 😅
+## ✅ Checkpoint 5 – Unique Feature Implemented
 
-It’s still in the works 🛠️ — a few bugs to squash, a few features to polish, and a whole lot of caffeine to finish it off 
+### 🌐 Website Preview Without Visiting
+- Added a feature that allows users to view a snapshot of the suspicious website without opening it in their browser.
+- Implemented a secure iframe-based preview system to display the website content safely.
+- Enhanced backend logic to fetch and sanitize HTML content for rendering.
+- Updated the UI with a dedicated preview section for better user experience.
+
+---
+
+
+## /source-code Endpoint
+- Handles GET and POST requests.
+- Retrieves the HTML content of the input URL using the requests library.
+- Renders the `source_code.html` template with the prettified HTML content.
 ---
 
 

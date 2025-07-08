@@ -24,15 +24,15 @@ class Controller:
             "extratorrent.ag", "fmovies.to", "putlocker.is",
         ]
         return domain.lower() in banned_websites
-
+ #mail service 
     def send_alert(self, url, score, details):
         try:
             sender_email = os.getenv("EMAIL_SENDER", "your-email@gmail.com")
             sender_password = os.getenv("EMAIL_PASSWORD", "your-app-password")
             receiver_email = self.user_email
             detection_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-            subject = "Security Alert - Suspicious URL Detected"
+   
+            subject = "Security Alert - Suspicious URL Detected using PhishNet"
             email_body = f"""
 Dear PhishNet User,
 
@@ -238,3 +238,4 @@ https://sanketsportfolio.vercel.app/
                 "msg": "Some error occurred, please check the URL.",
                 "emsg": str(e),
             }
+

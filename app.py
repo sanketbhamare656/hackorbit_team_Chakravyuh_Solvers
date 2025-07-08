@@ -7,15 +7,14 @@ from chatbot import chatbot_bp
 from controller import Controller
 import onetimescript
 from db import db
-from services.phone_verification import check_phone_number
-from services.sms_verification import analyze_sms
-from werkzeug.utils import secure_filename
 from PIL import Image
 from io import BytesIO
 import cv2
 import numpy as np
 import pytesseract
 from flask import Response
+import whois
+
 # Initialize Flask App
 app = Flask(__name__, static_folder="static")
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///domains.db"
@@ -27,17 +26,6 @@ with app.app_context():
     db.create_all()
 
 controller = Controller()
-
-
-@app.route('/scan_progress')
-def scan_progress():
-
-    def generate():
-        # This would be called at each step of your scanning process
-        yield f"data: {time.time()} Starting scan...\n\n"
-        # Add more yield statements for each step
-
-    return Response(generate(), mimetype='text/event-stream')
 
 
 @app.route("/url_service", methods=["GET", "POST"])
@@ -129,24 +117,10 @@ def update_json():
     try:
         with app.app_context():
             response = onetimescript.update_json()
-            print("SON updated successfully!")
+            print("JSON updated successfully!")
             return response, 200
     except Exception as e:
-        return f"Error updating JSON: {str(e)}", 500
-
-
-@app.route("/check_url", methods=["GET"])
-def check_url():
-    """Check the trust score of a given URL."""
-    url = request.args.get("url")
-    if not url:
-        return jsonify({"error": "No URL provided"}), 400
-
-    try:
-        result = controller.main(url)
-        return jsonify({"trust_score": result.get("trust_score", "N/A")})
-    except Exception as e:
-        return jsonify({"error": f"Error processing URL: {str(e)}"}), 500
+        return f" Error updating JSON: {str(e)}", 500
 
 
 if __name__ == "__main__":

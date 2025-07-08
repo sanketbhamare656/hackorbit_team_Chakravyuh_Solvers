@@ -1,11 +1,19 @@
+{% extends "base.html" %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Website Preview</title>
+
 </head>
+
 <body>
-    <h1>Soon</h1>
+    {% block content %}
+    <div id="warning-message">PhishNet: DON'T CLICK anything.</div>
+    <div id="preview-container">
+        {{ content | safe }}
+    </div>
+    {% endblock %}
 </body>
+
 </html>
