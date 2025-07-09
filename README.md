@@ -106,6 +106,7 @@ The fallback ML model uses a **Random Forest** because:
 - It’s fast to train and deploy.
 - It works well for small to medium tabular datasets.
 - XGBoost can be used as an alternative for even better accuracy if needed.
+- link to the trained model - https://github.com/sanketbhamare656/hackorbit_team_Chakravyuh_Solvers/tree/main/models
 
 ---
 
