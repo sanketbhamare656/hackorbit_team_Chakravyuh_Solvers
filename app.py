@@ -27,6 +27,64 @@ with app.app_context():
 
 controller = Controller()
 
+# Register Blueprints AFTER Database Initialization
+app.register_blueprint(chatbot_bp, url_prefix="/chatbot")
+
+# Get API Key Securely (Warn if Missing Instead of Raising Error)
+API_KEY = os.getenv("NEWS_API_KEY")
+if not API_KEY:
+    print(
+        "⚠ Warning: NEWS_API_KEY not found. Cybersecurity news may not work.")
+
+CYBER_NEWS_API_URL = (
+    f"https://newsapi.org/v2/everything?q=cybersecurity+hacking+data+breach"
+    f"+cyber+attack&language=en&sortBy=publishedAt&apiKey={API_KEY}")
+
+
+# @app.route('/scan_progress')
+# def scan_progress():
+
+#     def generate():
+#         # This would be called at each step of your scanning process
+#         yield f"data: {time.time()} Starting scan...\n\n"
+#         # Add more yield statements for each step
+
+#     return Response(generate(), mimetype='text/event-stream')
+
+
+def get_latest_news():
+    """Fetch latest cybersecurity news from NewsAPI."""
+    try:
+        print(f"Fetching news from: {CYBER_NEWS_API_URL}")  # Debugging log
+        response = requests.get(CYBER_NEWS_API_URL)
+        response.raise_for_status()
+        data = response.json()
+
+        if "articles" in data:
+            return [{
+                "title":
+                article.get("title", "No Title"),
+                "summary":
+                article.get("description", "No description available"),
+                "url":
+                article.get("url", "#"),
+                "published_at":
+                article.get("publishedAt", "Unknown Date"),
+            } for article in data["articles"][:10]]
+
+        return [{
+            "title": "Error Fetching News",
+            "summary": "Unexpected API response",
+            "url": "#"
+        }]
+
+    except requests.exceptions.RequestException as e:
+        return [{
+            "title": "Error Fetching News",
+            "summary": f"API request failed: {e}",
+            "url": "#"
+        }]
+
 
 @app.route("/url_service", methods=["GET", "POST"])
 def url_service():
@@ -105,10 +163,10 @@ def update_db():
     try:
         with app.app_context():
             response = onetimescript.update_db()
-            print("Database updated successfully!")
+            print("✅ Database updated successfully!")
             return response, 200
     except Exception as e:
-        return f"Error updating database: {str(e)}", 500
+        return f"❌ Error updating database: {str(e)}", 500
 
 
 @app.route("/update-json")
@@ -117,10 +175,55 @@ def update_json():
     try:
         with app.app_context():
             response = onetimescript.update_json()
-            print("JSON updated successfully!")
+            print("✅ JSON updated successfully!")
             return response, 200
     except Exception as e:
-        return f" Error updating JSON: {str(e)}", 500
+        return f"❌ Error updating JSON: {str(e)}", 500
+
+
+@app.route("/newsletter")
+def newsletter():
+    """Render the newsletter page with cybersecurity news."""
+    news = get_latest_news()
+    return render_template("newsletter.html", news=news)
+
+
+@app.route("/api/news")
+def api_news():
+    """API endpoint for fetching cybersecurity news in JSON format."""
+    return jsonify(get_latest_news())
+
+
+@app.route("/about")
+def about():
+    """Render the About page."""
+    return render_template("about.html")
+
+
+@app.route("/extension")
+def extension():
+    """Render the extension page."""
+    return render_template("extension.html")
+
+
+@app.route("/chat")
+def chat():
+    """Render the Chatbot page."""
+    return render_template("chat.html")
+
+
+@app.route("/check_url", methods=["GET"])
+def check_url():
+    """Check the trust score of a given URL."""
+    url = request.args.get("url")
+    if not url:
+        return jsonify({"error": "No URL provided"}), 400
+
+    try:
+        result = controller.main(url)
+        return jsonify({"trust_score": result.get("trust_score", "N/A")})
+    except Exception as e:
+        return jsonify({"error": f"Error processing URL: {str(e)}"}), 500
 
 
 if __name__ == "__main__":

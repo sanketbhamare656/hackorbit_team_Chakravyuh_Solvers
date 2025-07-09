@@ -92,8 +92,8 @@ button[type="submit"]:hover {
     border-radius: 0.5rem;
     padding: 10px;
     font-size: 1rem;
-    background-color: #87ff53;
-    color: black;
+    background-color: #3847ec;
+    color: rgb(255, 255, 255);
     cursor: pointer;
     width: 290px;
     margin-top: 10px;
@@ -102,7 +102,7 @@ button[type="submit"]:hover {
 }
 
 .preview-button:hover {
-    background-color: white;
+    background-color: rgb(144, 142, 238);
 }
 
 table {
@@ -195,22 +195,26 @@ main {
     input[type="text"] {
         width: 60%;
     }
+
     .result {
         max-width: 100%;
         padding: 10px;
         margin-left: 30%;
         box-sizing: border-box;
     }
+
     .result>* {
         word-wrap: break-word;
         overflow-wrap: break-word;
     }
+
     th,
     td {
         max-width: 20vw;
         padding: 5px;
         word-wrap: break-word;
     }
+
     table {
         width: 50%;
     }
@@ -236,142 +240,152 @@ main {
 }
 
 
- .navbar-right {
-            display: flex;
-        }.navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #0D0D0D;
-            color: green;
-            padding: 0 20px;
-        }
-        .navbar a {
-            color: green;
-            text-decoration: none;
-            padding: 14px 20px;
-            display: inline-block;
-        }
-        .navbar-logo {
-            font-weight: bold;
-        }
-        .navbar-right {
-            display: flex;
-        }
+.navbar-right {
+    display: flex;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0D0D0D;
+    color: green;
+    padding: 0 20px;
+}
+
+.navbar a {
+    color: green;
+    text-decoration: none;
+    padding: 14px 20px;
+    display: inline-block;
+}
+
+.navbar-logo {
+    font-weight: bold;
+}
+
+.navbar-right {
+    display: flex;
+}
 
 
-        @media only screen and (max-width: 599px) {
-            body {
-                font-size: 14px;
-                padding: 10px;
-            }
+@media only screen and (max-width: 599px) {
+    body {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 3rem;
+    }
+
+    .container {
+        padding-top: 5%;
+        padding-bottom: 2rem;
+    }
+
+    input[type="text"] {
+        width: 90%;
+        font-size: 1.5rem;
+    }
+
+    button[type="submit"],
+    .preview-button {
+        width: 100%;
+        font-size: 1rem;
+        padding: 0.6rem;
+    }
+
+    .result {
+        width: 100%;
+        margin-left: 0;
+        text-align: center;
+        padding: 5px;
+    }
+
+    table {
+        width: 100%;
+        display: block;
+        overflow-x: auto;
+    }
+
+    th,
+    td {
+        max-width: 90vw;
+        word-wrap: break-word;
+    }
+
+    .app-footer {
+        position: relative;
+        height: auto;
+        padding: 10px 0;
+    }
+
+    #preview-container {
+        margin-top: 2rem;
+        border-width: 3px;
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background: rgba(0, 0, 0, 0.7);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 10;
+    }
+
+    /* Reduce logo size for better spacing */
+    .navbar-logo img {
+        height: 80px;
+        /* Adjusted from 100px to 80px */
+    }
+
+    /* Menu icon stays close to the logo */
+    .menu-icon {
+        display: none;
+        font-size: 28px;
+        background: transparent;
+        border: none;
+        color: white;
+        cursor: pointer;
+    }
+
+    /* Mobile view adjustments */
+    @media (max-width: 768px) {
+        .navbar {
+            padding: 10px 15px;
+            /* Reduced padding */
+        }
+
+        .navbar-logo img {
+            height: 60px;
+            /* Reduce size further for mobile */
+        }
+
+        .menu-icon {
+            display: block;
+            margin-left: auto;
+            /* Ensures it's next to the logo */
+            padding: 5px 100px;
+            /* Reduces unnecessary space */
+        }
+
+        .navbar-links {
+            display: none;
+            width: 60%;
+            position: fixed;
+            right: 0;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.9);
+            padding-top: 20px;
+        }
+
+        .navbar-links.show {
+            display: flex;
+        }
         
-            h1 {
-                font-size: 3rem;
-            }
-        
-            .container {
-                padding-top: 5%;
-                padding-bottom: 2rem;
-            }
-        
-            input[type="text"] {
-                width: 90%;
-                font-size: 1.5rem;
-            }
-        
-            button[type="submit"],
-            .preview-button {
-                width: 100%;
-                font-size: 1rem;
-                padding: 0.6rem;
-            }
-        
-            .result {
-                width: 100%;
-                margin-left: 0;
-                text-align: center;
-                padding: 5px;
-            }
-        
-            table {
-                width: 100%;
-                display: block;
-                overflow-x: auto;
-            }
-        
-            th,
-            td {
-                max-width: 90vw;
-                word-wrap: break-word;
-            }
-        
-            .app-footer {
-                position: relative;
-                height: auto;
-                padding: 10px 0;
-            }
-        
-            #preview-container {
-                margin-top: 2rem;
-                border-width: 3px;
-            }
-        
-            .navbar {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 10px 20px;
-                background: rgba(0, 0, 0, 0.7);
-                position: fixed;
-                width: 100%;
-                top: 0;
-                left: 0;
-                z-index: 10;
-            }
-            
-            /* Reduce logo size for better spacing */
-            .navbar-logo img {
-                height: 80px; /* Adjusted from 100px to 80px */
-            }
-            
-            /* Menu icon stays close to the logo */
-            .menu-icon {
-                display: none;
-                font-size: 28px;
-                background: transparent;
-                border: none;
-                color: white;
-                cursor: pointer;
-            }
-            
-            /* Mobile view adjustments */
-            @media (max-width: 768px) {
-                .navbar {
-                    padding: 10px 15px; /* Reduced padding */
-                }
-            
-                .navbar-logo img {
-                    height: 60px; /* Reduce size further for mobile */
-                }
-            
-                .menu-icon {
-                    display: block;
-                    margin-left: auto; /* Ensures it's next to the logo */
-                    padding: 5px 100px; /* Reduces unnecessary space */
-                }
-            
-                .navbar-links {
-                    display: none;
-                    width: 60%;
-                    position: fixed;
-                    right: 0;
-                    height: 100vh;
-                    background: rgba(0, 0, 0, 0.9);
-                    padding-top: 20px;
-                }
-            
-                .navbar-links.show {
-                    display: flex;
-                }
-            }

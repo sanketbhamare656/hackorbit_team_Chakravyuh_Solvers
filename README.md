@@ -34,79 +34,144 @@ PhishNet is a web-based tool designed to detect and warn users about suspicious 
 
 ---
 
-## 🚧 What's Next?
+## ✅ Checkpoint 2 Progress
 
-- We're now working on adding our project's unique feature — stay tuned for something exciting! 
----
+### 🔧 Backend Development
+- Core logic integration started in `app.py`.
 
+### 🧪 UI Demo Pages
+- Created demo HTML files for all planned features (chatbot, extension, URL scanner, etc).
 
-
-## Checkpoint 2 Progress
-
-
----
-
-##  Progress Made in Checkpoint 2
-
-1. **Backend Development**
-   - Core logic integration started in `app.py` (Flask-based backend).
-   
-
-2. **UI Demo Pages**
-   - Created demo HTML files for all planned features (e.g., chatbot, extension, URL scanner, etc).
-   
-
-3. **Data Integration**
-   - Added required datasets such as `domain-rank.json` for domain trust scoring.
-   
+### 🗃️ Data Integration
+- Added required datasets such as `domain-rank.json` for domain trust scoring.
 
 ---
+
 ## ✅ Checkpoint 3 Progress
 
 ### 1. ✅ **First Feature Implemented: URL Scanning**
 - Users can now scan any URL to check for phishing indicators or suspicious activity.
-- Fully integrated frontend and backend processing pipeline.
+- Fully integrated frontend and backend pipeline.
 
 ### 2. ✅ **UI Enhancements**
-- Updated `index.html` for smoother input and user flow.
-- Created a new, dedicated UI page `url_scanner.html` with particle background, console-style scanning logs, and animated trust score display.
+- `index.html` updated for smoother flow.
+- Created `url_scanner.html` with particle.js background, console-style logs, and animated trust score.
 
 ### 3. ✅ **Backend Enhancements**
-- Updated `app.py` for routing and scanning logic.
-- Added key backend modules:
-  - `controller.py` — handles scanning logic
-  - `onetimescript.py` — supports domain/IP analysis and preprocessing
-- Integrated trained dataset for phishing detection.
+- `app.py` routing + core logic.
+- Added:
+  - `controller.py` — scanning logic
+  - `onetimescript.py` — domain/IP analysis & preprocessing
 
 ---
+
 ## ✅ Checkpoint 4 – UI Improvements
 
-In this checkpoint, we focused on enhancing the **user interface and user experience** 
-
-### ✨ Updates Made:
-- improve and fix UI in `url_service.html`
+- Improved layout and responsiveness in `url_service.html`
 - Minor bug fixes in `index.html`
 
+---
 
 ## ✅ Checkpoint 5 – Unique Feature Implemented
 
 ### 🌐 Website Preview Without Visiting
-- Added a feature that allows users to view a snapshot of the suspicious website without opening it in their browser.
-- Implemented a secure iframe-based preview system to display the website content safely.
-- Enhanced backend logic to fetch and sanitize HTML content for rendering.
-- Updated the UI with a dedicated preview section for better user experience.
+- Secure iframe-based snapshot system.
+- Sanitized HTML content to protect users.
+- Added preview section to UI for seamless UX.
 
 ---
 
+## 📄 `/source-code` Endpoint
 
-## /source-code Endpoint
-- Handles GET and POST requests.
-- Retrieves the HTML content of the input URL using the requests library.
-- Renders the `source_code.html` template with the prettified HTML content.
+- Handles GET/POST.
+- Fetches and renders HTML content securely.
+- Template used: `source_code.html`.
+
+---
+## ✅ Checkpoint 6 - Final Check Point From Team Chakrayvuh Solvers
+## ✅ **Why Hybrid?**
+
+Phishing websites evolve quickly — a purely rule-based system can’t always keep up. Combining **traditional security checks** with **data-driven learning** makes the detection:
+- More accurate
+- More adaptable
+- More resilient to new phishing tactics
+
 ---
 
+## 🌲 **Why Random Forest?**
 
-## 👥 Team Chakravyuh Solvers
+The fallback ML model uses a **Random Forest** because:
+- It’s an ensemble of many decision trees → more robust and less likely to overfit.
+- It handles numerical features well (like URL length, number of dots, subdomains, special characters).
+- It’s fast to train and deploy.
+- It works well for small to medium tabular datasets.
+- XGBoost can be used as an alternative for even better accuracy if needed.
+
+---
+
+## ⚙️ **How it works**
+
+1️⃣ The **rule-based engine** calculates a **trust score** from 0 to 100:
+   - Good signals ➜ score goes up (e.g., old domain, high domain rank, secure HTTPS)
+   - Bad signals ➜ score goes down (e.g., IP in URL, suspicious redirects, too long, too deep)
+
+2️⃣ Decision logic:
+   | Trust Score | Result | Fallback? |
+   |-------------|--------|-----------|
+   | ≥ 70        | ✅ Legitimate | ❌ |
+   | ≤ 40        | 🚩 Phishing   | ❌ |
+   | 40–70       | 🤔 Inconclusive | ✅ ML fallback used |
+
+3️⃣ If needed, the trained ML model classifies the URL based on extracted features.
+
+4️⃣ The final result includes:
+   - `legitimate` or `phishing`
+   - Whether it was decided by **rules** or **ML fallback**
+   - The trust score for transparency
+
+---
+
+## 📦 How to Run the Project Locally
+- The latest `top-1m.csv` can be downloaded from Tranco List(https://tranco-list.eu/) (this CSV is updated every month). 
+- In this `onetimescript.py`, we read the file `/static/data/top-1m.csv`, populate data, and store it into a sorted list (`sorted-top1million.txt`) and a - - JSON file (`domain-rank.json`) for easy access while assessing URLs.
+
+- If you want to update the list and JSON on your local machine, follow these steps:
+- 1. Download the `top-1m.csv` file from Tranco List (https://tranco-list.eu/)
+- 2. Copy it to the `/static/data/` directory.
+- 3. Execute the `onetimescript.py` file. It takes about 10-20 seconds to execute the script.
+
+### Demo Video 
+- https://youtu.be/N977gRcLIo0
+
+### PPT (Google Slide)
+- https://docs.google.com/presentation/d/1Fs-_w2i2KW8648S3k0Etsya21jRsfoJ1E6NVdWmiMPo/edit?usp=sharing
+### 🔁 Step-by-step Setup
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/sanketbhamare656/hackorbit_team_Chakravyuh_Solvers.git
+cd phishnet
+
+# 2. Create and activate virtual environment
+python -m venv venve
+source venv/bin/activate   # or on Windows: venv\Scripts\activate
+
+# 3. Install dependencies
+pip install -r requirements.txt
+
+# 4. Download Dataset Manually (important)
+# Visit: https://tranco-list.eu/
+# Download the latest top-1m.csv and place it in: /static/data/
+
+# 5. Run one-time data processing
+python onetimescript.py
+
+# 6. Start the Flask app
+python app.py
+
+'''
+### Demo Video 
+- https://youtu.be/N977gRcLIo0
 
 
 

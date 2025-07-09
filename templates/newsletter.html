@@ -1,11 +1,331 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Soon</h1>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+<div id="particles-js"></div>
+
+<div class="newsletter-section">
+    <div class="container">
+        <div class="newsletter-header">
+            <h2><i class="fas fa-newspaper"></i> PhishNet's NewsLatter</h2>
+            <p>Stay updated with top cybersecurity trends, hacks & protection insights.</p>
+        </div>
+
+        <div class="newsletter-controls">
+            <button id="fetchNewsBtn" class="btn neon" onclick="fetchNews()">
+                <i class="fas fa-bolt"></i> Fetch Latest News
+            </button>
+            <button id="refreshNewsBtn" class="btn outline" onclick="fetchNews()" style="display: none;">
+                <i class="fas fa-sync-alt"></i> Refresh
+            </button>
+            <div id="loadingSpinner" class="news-loading" style="display: none;">
+                <div class="spinner"></div>
+                <span>Fetching news...</span>
+            </div>
+        </div>
+
+        <div id="newsContainer" class="news-grid"></div>
+    </div>
+</div>
+
+<style>
+    body {
+    background-color: var(--dark);
+    color: var(--light);
+    font-family: 'Segoe UI', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+    #particles-js {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        background: #0e0e0e;
+    }
+
+    .newsletter-section {
+        padding: 100px 0;
+        min-height: 100vh;
+        position: relative;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 0 20px;
+        z-index: 2;
+        position: relative;
+    }
+
+    .newsletter-header {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .newsletter-header h2 {
+        font-size: 36px;
+        color: #0066ff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .newsletter-header p {
+        color: #aaa;
+        font-size: 18px;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .newsletter-controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 40px;
+    }
+
+    .btn {
+        padding: 12px 25px;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 15px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+    }
+
+    .btn.neon {
+        background: #0066ff;
+        color: #fff;
+        border: none;
+        box-shadow: 0 0 10px #0066ff;
+    }
+
+    .btn.neon:hover {
+        background: #004bcc;
+        transform: translateY(-2px);
+    }
+
+    .btn.outline {
+        background: transparent;
+        color: #0066ff;
+        border: 2px solid #0066ff;
+    }
+
+    .btn.outline:hover {
+        background: rgba(0, 102, 255, 0.1);
+        transform: translateY(-2px);
+    }
+
+    .news-loading {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #0066ff;
+        font-weight: 500;
+    }
+
+    .spinner {
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(0, 102, 255, 0.3);
+        border-top-color: #0066ff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+
+    .news-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 25px;
+    }
+
+    .news-card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(0, 102, 255, 0.2);
+        border-radius: 12px;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+    }
+
+    .news-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 8px 20px rgba(0, 102, 255, 0.1);
+        border-color: #0066ff;
+    }
+
+    .news-image img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+
+    .news-card:hover .news-image img {
+        transform: scale(1.05);
+    }
+
+    .news-content {
+        padding: 20px;
+    }
+
+    .news-date {
+        color: #0066ff;
+        font-size: 14px;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .news-title {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #fff;
+    }
+
+    .news-summary {
+        font-size: 15px;
+        color: #bbb;
+        margin-bottom: 16px;
+        line-height: 1.6;
+    }
+
+    .news-link {
+        background: #0066ff;
+        color: #fff;
+        box-shadow: 0 0 10px #0066ff;
+        padding: 10px 20px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .news-link:hover {
+        background: #004bcc;
+        transform: translateY(-2px);
+    }
+
+    .no-news, .error-message {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 40px;
+        border-radius: 12px;
+        font-size: 18px;
+    }
+
+    .no-news {
+        background: rgba(255, 255, 255, 0.05);
+        color: #aaa;
+    }
+
+    .error-message {
+        background: rgba(255, 0, 0, 0.1);
+        color: #ff4c4c;
+    }
+
+    @media (max-width: 768px) {
+        .newsletter-header h2 {
+            font-size: 28px;
+        }
+
+        .newsletter-controls {
+            flex-direction: column;
+        }
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        particlesJS("particles-js", {
+            particles: {
+                number: { value: 70, density: { enable: true, value_area: 800 } },
+                color: { value: "#0066ff" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 140, color: "#0066ff", opacity: 0.3, width: 1 },
+                move: { enable: true, speed: 2, random: true }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "repulse" },
+                    onclick: { enable: true, mode: "push" }
+                },
+                modes: {
+                    repulse: { distance: 100, duration: 0.4 },
+                    push: { particles_nb: 4 }
+                }
+            },
+            retina_detect: true
+        });
+    });
+
+    function fetchNews() {
+        const newsContainer = document.getElementById("newsContainer");
+        const loadingSpinner = document.getElementById("loadingSpinner");
+        const fetchNewsBtn = document.getElementById("fetchNewsBtn");
+        const refreshNewsBtn = document.getElementById("refreshNewsBtn");
+
+        loadingSpinner.style.display = "flex";
+        fetchNewsBtn.style.display = "none";
+        newsContainer.innerHTML = "";
+
+        fetch("/api/news")
+            .then(res => {
+                if (!res.ok) throw new Error("Failed to fetch news.");
+                return res.json();
+            })
+            .then(data => {
+                loadingSpinner.style.display = "none";
+
+                if (!data || data.length === 0) {
+                    newsContainer.innerHTML = `<div class="no-news"><i class="fas fa-newspaper fa-2x mb-2"></i><h3>No news found</h3></div>`;
+                    return;
+                }
+
+                newsContainer.innerHTML = data.map(news => `
+                    <div class="news-card">
+                        <div class="news-image">
+                            
+                        </div>
+                        <div class="news-content">
+                            <div class="news-date"><i class="far fa-calendar-alt"></i> ${new Date().toLocaleDateString()}</div>
+                            <h3 class="news-title">${news.title}</h3>
+                            <p class="news-summary">${news.summary}</p>
+                            <a href="${news.url}" target="_blank" class="news-link">Read Article <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                `).join("");
+
+                refreshNewsBtn.style.display = "inline-block";
+            })
+            .catch(err => {
+                loadingSpinner.style.display = "none";
+                fetchNewsBtn.style.display = "inline-block";
+                newsContainer.innerHTML = `<div class="error-message"><i class="fas fa-exclamation-triangle"></i> ${err.message}</div>`;
+                console.error(err);
+            });
+    }
+</script>
+{% endblock %}

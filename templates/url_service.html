@@ -1,141 +1,1289 @@
 {% extends "base.html" %}
-{% block content %}
+<!DOCTYPE html>
+<html>
 <div id="particles-js"></div>
+<style>
+    :root {
+        --primary: #00f0ff;
+        --secondary: #0066ff;
+        --dark: #0a0a12;
+        --darker: #050508;
+        --light: #f0f0f0;
+        --danger: #ff3860;
+        --success: #23d160;
+    }
 
-<!-- Main Container -->
-<div class="container">
-    <!-- Centered Header -->
-    <a href="/" class="logo" style="text-align: center; display: block; margin: 0 auto;">
-        <h1 itemprop="name" style="color: var(--primary);">PhishNet</h1>
-    </a>
+    /* Global Styles */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Space Grotesk', sans-serif;
+    }
 
-    <div class="short-note" style="text-align: center;">
-        <p itemprop="description"><strong>A Digital Net Capturing Malicious Links! 🎣</strong><br>
-            Stay secure online with <strong>PhishNet.</strong>
-        </p>
+    body {
+        background-color: var(--dark);
+        color: var(--light);
+        line-height: 1.6;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+    }
+
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 30px;
+    }
+
+    section {
+        padding: 100px 0;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        font-weight: 700;
+        line-height: 1.2;
+    }
+
+    .gradient-text {
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: inline;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 15px 30px;
+        border-radius: 50px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .btn-primary {
+        background: linear-gradient(45deg, var(--primary), var(--secondary));
+        color: var(--dark);
+        box-shadow: 0 10px 20px rgba(0, 240, 255, 0.3);
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(0, 240, 255, 0.4);
+    }
+
+    .btn-outline {
+        background: transparent;
+        color: var(--primary);
+        border: 2px solid var(--primary);
+    }
+
+    .btn-outline:hover {
+        background: rgba(0, 240, 255, 0.1);
+        transform: translateY(-3px);
+    }
+
+    .section-title {
+        text-align: center;
+        margin-bottom: 70px;
+        font-size: 42px;
+        position: relative;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 2px;
+    }
+
+    /* Header Styles */
+    header {
+        background-color: rgba(10, 10, 18, 0.95);
+        padding: 20px 0;
+        position: fixed;
+        width: 100%;
+        z-index: 1000;
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+    }
+
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+    }
+
+    .logo i {
+        margin-right: 10px;
+        font-size: 32px;
+    }
+
+    .nav-links {
+        display: flex;
+        list-style: none;
+    }
+
+    .nav-links li {
+        margin-left: 30px;
+    }
+
+    .nav-links a {
+        color: var(--light);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s;
+        position: relative;
+        font-size: 16px;
+    }
+
+    .nav-links a::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        background: var(--primary);
+        bottom: -5px;
+        left: 0;
+        transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+        width: 100%;
+    }
+
+    .nav-links a:hover {
+        color: var(--primary);
+    }
+
+    .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--light);
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    /* Hero Section */
+    .hero {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        padding-top: 80px;
+        text-align: left;
+        background: radial-gradient(circle at 30% 50%, rgba(0, 102, 255, 0.15) 0%, rgba(10, 10, 18, 1) 70%);
+    }
+
+    .hero-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .hero-text {
+        flex: 1;
+        padding-right: 50px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero-image {
+        flex: 1;
+        position: relative;
+        perspective: 1000px;
+    }
+
+    .hero-image-inner {
+        position: relative;
+        transform-style: preserve-3d;
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .hero-image img {
+        width: 100%;
+        max-width: 600px;
+        filter: drop-shadow(0 0 30px rgba(0, 240, 255, 0.3));
+    }
+
+    .hero h1 {
+        font-size: 64px;
+        margin-bottom: 20px;
+        color: var(--light);
+    }
+
+    .hero h1 span {
+        color: var(--primary);
+    }
+
+    .hero p {
+        font-size: 20px;
+        margin-bottom: 40px;
+        line-height: 1.6;
+        opacity: 0.9;
+        max-width: 600px;
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 50px;
+    }
+
+    .hero-stats {
+        display: flex;
+        gap: 40px;
+        margin-top: 40px;
+    }
+
+    .stat-item {
+        text-align: left;
+    }
+
+    .stat-number {
+        font-size: 42px;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 5px;
+        line-height: 1;
+    }
+
+    .stat-label {
+        font-size: 16px;
+        opacity: 0.8;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* Animated Background Elements */
+    .floating-elements {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 0;
+    }
+
+    .floating-element {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(0, 240, 255, 0.1);
+        filter: blur(40px);
+        animation: float-element 15s infinite linear;
+    }
+
+    @keyframes float {
+        0% {
+            transform: translateY(0px) rotateY(-5deg);
+        }
+
+        50% {
+            transform: translateY(-20px) rotateY(5deg);
+        }
+
+        100% {
+            transform: translateY(0px) rotateY(-5deg);
+        }
+    }
+
+    @keyframes float-element {
+        0% {
+            transform: translate(0, 0) rotate(0deg);
+        }
+
+        50% {
+            transform: translate(50px, 50px) rotate(180deg);
+        }
+
+        100% {
+            transform: translate(0, 0) rotate(360deg);
+        }
+    }
+
+    /* Features Section */
+    .features {
+        background-color: var(--darker);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .features::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 70% 30%, rgba(0, 102, 255, 0.1) 0%, transparent 70%);
+        z-index: 0;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 30px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .feature-card {
+        background: rgba(20, 20, 30, 0.8);
+        padding: 40px 30px;
+        border-radius: 15px;
+        transition: all 0.4s ease;
+        border: 1px solid rgba(0, 240, 255, 0.1);
+        backdrop-filter: blur(10px);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .feature-card::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg, transparent, rgba(0, 240, 255, 0.1), transparent);
+        transform: rotate(45deg);
+        transition: all 0.6s ease;
+        opacity: 0;
+    }
+
+    .feature-card:hover::before {
+        opacity: 1;
+        animation: shine 1.5s;
+    }
+
+    @keyframes shine {
+        0% {
+            left: -50%;
+        }
+
+        100% {
+            left: 150%;
+        }
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 240, 255, 0.1);
+        border-color: rgba(0, 240, 255, 0.3);
+    }
+
+    .feature-icon {
+        font-size: 50px;
+        margin-bottom: 25px;
+        color: var(--primary);
+        transition: all 0.4s ease;
+    }
+
+    .feature-card h3 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: var(--light);
+    }
+
+    .feature-card p {
+        opacity: 0.8;
+        margin-bottom: 25px;
+        line-height: 1.6;
+    }
+
+    .feature-link {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        transition: all 0.3s ease;
+    }
+
+    .feature-link i {
+        margin-left: 8px;
+        transition: transform 0.3s ease;
+    }
+
+    .feature-link:hover {
+        color: var(--secondary);
+    }
+
+    .feature-link:hover i {
+        transform: translateX(5px);
+    }
+
+    /* About Section */
+    .about {
+        background-color: var(--dark);
+        position: relative;
+    }
+
+    .about-content {
+        text-align: center;
+    }
+
+    .about-text {
+        margin: 0 auto;
+        max-width: 800px;
+    }
+
+    .about-text p {
+        margin-bottom: 20px;
+        opacity: 0.9;
+        line-height: 1.6;
+    }
+
+    .about-image {
+        flex: 1;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        transform: perspective(1000px) rotateY(-10deg);
+        transition: transform 0.5s ease;
+    }
+
+    .about-image:hover {
+        transform: perspective(1000px) rotateY(0deg);
+    }
+
+    .about-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    /* Team Section */
+    .team {
+        background-color: var(--darker);
+        position: relative;
+    }
+
+    .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+    }
+
+    .team-card {
+        background: rgba(20, 20, 30, 0.8);
+        padding: 30px;
+        border-radius: 15px;
+        transition: all 0.4s ease;
+        border: 1px solid rgba(0, 240, 255, 0.1);
+        text-align: center;
+        backdrop-filter: blur(10px);
+    }
+
+    .team-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 240, 255, 0.1);
+        border-color: rgba(0, 240, 255, 0.3);
+    }
+
+    .team-image {
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        margin: 0 auto 25px;
+        overflow: hidden;
+        border: 3px solid var(--primary);
+        position: relative;
+    }
+
+    .team-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .team-card:hover .team-image img {
+        transform: scale(1.1);
+    }
+
+    .team-info h3 {
+        font-size: 22px;
+        margin-bottom: 5px;
+        color: var(--light);
+    }
+
+    .team-info p {
+        color: var(--primary);
+        margin-bottom: 15px;
+        font-weight: 500;
+    }
+
+    .team-info .team-bio {
+        color: var(--light);
+        opacity: 0.8;
+        font-size: 14px;
+        margin-bottom: 20px;
+        line-height: 1.6;
+    }
+
+    .team-social {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .team-social a {
+        color: var(--light);
+        font-size: 20px;
+        opacity: 0.8;
+        transition: all 0.3s ease;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 240, 255, 0.1);
+    }
+
+    .team-social a:hover {
+        opacity: 1;
+        transform: translateY(-3px);
+        background: rgba(0, 240, 255, 0.2);
+        color: var(--primary);
+    }
+
+    /* Testimonials */
+    .testimonials {
+        background-color: var(--dark);
+        position: relative;
+    }
+
+    .testimonial-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 30px;
+    }
+
+    .testimonial-card {
+        background: rgba(20, 20, 30, 0.8);
+        padding: 40px 30px;
+        border-radius: 15px;
+        transition: all 0.4s ease;
+        border: 1px solid rgba(0, 240, 255, 0.1);
+        backdrop-filter: blur(10px);
+        position: relative;
+    }
+
+    .testimonial-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 240, 255, 0.1);
+        border-color: rgba(0, 240, 255, 0.3);
+    }
+
+    .testimonial-text {
+        font-style: italic;
+        margin-bottom: 30px;
+        position: relative;
+        font-size: 18px;
+        line-height: 1.6;
+        opacity: 0.9;
+    }
+
+    .testimonial-text::before {
+        content: '"';
+        font-size: 80px;
+        position: absolute;
+        top: -40px;
+        left: -20px;
+        color: var(--primary);
+        opacity: 0.2;
+        font-family: Georgia, serif;
+        line-height: 1;
+    }
+
+    .testimonial-author {
+        display: flex;
+        align-items: center;
+    }
+
+    .author-image {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 20px;
+        background: linear-gradient(45deg, var(--primary), var(--secondary));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--dark);
+        font-weight: bold;
+        font-size: 24px;
+        flex-shrink: 0;
+    }
+
+    .author-info h4 {
+        font-size: 20px;
+        margin-bottom: 5px;
+        color: var(--light);
+    }
+
+    .author-info p {
+        opacity: 0.7;
+        font-size: 16px;
+    }
+
+    /* CTA Section */
+    .cta-section {
+        background: linear-gradient(135deg, var(--darker), var(--dark));
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cta-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+        opacity: 0.1;
+        z-index: 0;
+    }
+
+    .cta-section .container {
+        position: relative;
+        z-index: 1;
+    }
+
+    .cta-section h2 {
+        font-size: 42px;
+        margin-bottom: 20px;
+    }
+
+    .cta-section p {
+        max-width: 700px;
+        margin: 0 auto 40px;
+        font-size: 20px;
+        opacity: 0.9;
+    }
+
+    /* Footer */
+    footer {
+        background-color: var(--darker);
+        padding: 100px 0 0;
+        position: relative;
+    }
+
+    .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 50px;
+        margin-bottom: 60px;
+    }
+
+    .footer-logo {
+        margin-bottom: 25px;
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--primary);
+    }
+
+    .footer-about p {
+        margin-bottom: 25px;
+        opacity: 0.8;
+        line-height: 1.6;
+    }
+
+    .footer-social {
+        display: flex;
+        gap: 15px;
+    }
+
+    .footer-social a {
+        color: var(--light);
+        font-size: 20px;
+        opacity: 0.8;
+        transition: all 0.3s ease;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 240, 255, 0.1);
+    }
+
+    .footer-social a:hover {
+        opacity: 1;
+        transform: translateY(-3px);
+        background: rgba(0, 240, 255, 0.2);
+        color: var(--primary);
+    }
+
+    .footer-column h3 {
+        color: var(--primary);
+        margin-bottom: 25px;
+        font-size: 20px;
+        position: relative;
+        padding-bottom: 10px;
+    }
+
+    .footer-column h3::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 40px;
+        height: 2px;
+        background: var(--primary);
+    }
+
+    .footer-links {
+        list-style: none;
+    }
+
+    .footer-links li {
+        margin-bottom: 15px;
+    }
+
+    .footer-links a {
+        color: var(--light);
+        text-decoration: none;
+        opacity: 0.8;
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+
+    .footer-links a:hover {
+        opacity: 1;
+        transform: translateX(5px);
+        color: var(--primary);
+    }
+
+    .footer-contact p {
+        margin-bottom: 15px;
+        opacity: 0.8;
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .footer-contact i {
+        margin-right: 10px;
+        color: var(--primary);
+        margin-top: 3px;
+    }
+
+    .footer-bottom {
+        background-color: rgba(5, 5, 8, 0.8);
+        padding: 25px 0;
+        text-align: center;
+        border-top: 1px solid rgba(0, 240, 255, 0.1);
+    }
+
+    .copyright {
+        opacity: 0.7;
+        font-size: 14px;
+    }
+
+    .copyright a {
+        color: var(--primary);
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .copyright a:hover {
+        text-decoration: underline;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 1200px) {
+        .hero h1 {
+            font-size: 54px;
+        }
+
+        .hero p {
+            font-size: 18px;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .hero-content {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .hero-text {
+            padding-right: 0;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+        }
+
+        .hero p {
+            margin: 0 auto 30px;
+        }
+
+        .hero-buttons {
+            justify-content: center;
+        }
+
+        .hero-stats {
+            justify-content: center;
+        }
+
+        .about-content {
+            flex-direction: column;
+        }
+
+        .about-image {
+            margin-top: 50px;
+        }
+
+        .section-title {
+            font-size: 36px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .nav-links {
+            display: none;
+        }
+
+        .mobile-menu-btn {
+            display: block;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+        }
+
+        .hero-buttons {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .hero-stats {
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .features-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .section-title {
+            font-size: 32px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .hero h1 {
+            font-size: 36px;
+        }
+
+        .hero p {
+            font-size: 16px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            font-size: 13px;
+        }
+
+        .section-title {
+            font-size: 28px;
+        }
+
+        .footer-content {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+    }
+
+    #loading-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        width: 0%;
+        z-index: 9999;
+        transition: width 0.4s ease;
+    }
+
+    :root {
+        --primary: #00f0ff;
+        --secondary: #0066ff;
+        --dark: #0a0a12;
+        --darker: #050508;
+        --light: #f0f0f0;
+        --danger: #ff3860;
+        --success: #23d160;
+    }
+
+    /* CIRCULAR SPINNER */
+    #circular-spinner {
+        display: none;
+        justify-content: center;
+        align-items: center;
+        padding: 30px;
+    }
+
+    .circular-loader {
+        width: 60px;
+        height: 60px;
+        border: 6px solid rgba(0, 240, 255, 0.2);
+        border-top: 6px solid var(--primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    .result-values {
+    text-align: right;
+    margin-top: 20px;
+  }
+
+  .score-explanation {
+    text-align: right;
+  }
+
+  .result {
+    text-align: right;
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+< <body>
+    <div id="particles-js"></div>
+    <div id="loading-bar"></div>
+
+    {% block content %}
+    <div class="container" style="text-align: center;">
+        <a href="/" class="logo" style="
+            font-size: 48px;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+            display: inline-block;
+          ">
+            <h1 itemprop="name" style="margin: 0;">PhishNet</h1>
+        </a>
+
+        <div class="short-note" style="margin-top: 10px;">
+            <p itemprop="description" style="opacity: 0.9;">
+                <strong>A Digital Net Capturing Malicious Links! 🎣</strong><br>
+                Stay secure online with <strong style="color: var(--primary);">PhishNet.</strong>
+            </p>
+        </div>
     </div><br>
 
-    <!-- URL Input Form -->
     <form method="post">
         <input type="text" name="url" placeholder="Enter URL to scan" required />
         <button type="submit" class="btn btn-primary">Verify URL</button>
     </form>
-
-    <!-- Loader -->
-    <div class="loader" id="loader" style="margin: 20px auto; display: none;"></div>
-
-    <!-- Scan Console Output -->
-    <div class="scan-console" style="text-align: center; font-family: monospace; color: #0f0; background-color: #000; padding: 15px; margin-top: 20px; border-radius: 5px; max-height: 300px; overflow-y: auto; display: none;"></div>
+    <div id="circular-spinner">
+        <div class="circular-loader"></div>
+    </div>
+    <div class="scan-console"></div>
 
     {% if output != "NA" %}
-    <!-- Result Section -->
-    <div class="result" style="text-align: left;">
-        {{ output|safe }}
+    <div class="result">
+        {% if output.status == "SUCCESS" %}
+        <div class="trust-score">
+            {% if output.trust_score >= 0 and output.trust_score < 60 %} <span style="color: red">Trust Score:
+                {{output.trust_score}} / 100</span>
+                {% elif output.trust_score >= 60 and output.trust_score < 70 %} <span style="color: orange">Trust
+                    Score: {{output.trust_score}} / 100</span>
+                    {% elif output.trust_score >= 70 and output.trust_score < 90 %} <span style="color: yellowgreen">
+                        Trust Score: {{output.trust_score}} / 100</span>
+                        {% else %}
+                        <span style="color: green">Trust Score: {{output.trust_score}} / 100</span>
+                        {% endif %}
+
+                        <!-- AI Explanation -->
+                        <div class="score-explanation" style="margin-top: 10px; font-size: 0.9rem; color: #666;">
+                            {{ output.explanation }}
+                        </div>
+        </div>
+
+        <div class="result-values">
+            <div>{{output.url}}</div>
+            {% if output.msg is defined %}
+            <div style="margin-top: 8px;">{{output.msg}}</div>
+            {% endif %}
+        </div>
+
+        {% if output.response_status != False %}
+        <div class="action-buttons">
+            <form id="preview" class="preview-form" action="{{ url_for('preview')}}" method="POST" target="_blank">
+                <input type="hidden" name="url" value="{{output.url}}">
+            </form>
+            <button class="preview-button" onclick="document.getElementById('preview').submit()">Preview URL within
+                PhishNet</button>
+
+            <form id="source-code" class="source-code-form" action="{{ url_for('view_source_code')}}" method="POST"
+                target="_blank">
+                <input type="hidden" name="url" value="{{output.url}}">
+            </form>
+            <button class="preview-button" onclick="document.getElementById('source-code').submit()">Show Source
+                Code</button>
+
+            <div style="font-size: 0.85rem; margin-top: 8px; color: #613ee0;">(External scripts are disabled for your
+                safety.)</div>
+        </div>
+        {% else %}
+        <div class="error-message">
+            Cannot access this page at the moment. Page may be down or blocked.
+        </div>
+        {% endif %}
+
+        <div class="results-container">
+            <div class="result-section">
+                <h3 class="section-title">Info for Nerds</h3>
+                <table class="table-view">
+                    <thead>
+                        <tr>
+                            <th>Property</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Global Rank</td>
+                            <td>{{output.rank}}</td>
+                        </tr>
+                        <tr>
+                            <td>HTTP Status Code</td>
+                            <td>{{output.response_status}}</td>
+                        </tr>
+                        <tr>
+                            <td>Domain Age</td>
+                            <td>{{output.age}}</td>
+                        </tr>
+                        <tr>
+                            <td>URL Shortener</td>
+                            <td>{% if output.is_url_shortened == 1 %}YES{% else %}NO{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>HSTS Support</td>
+                            <td>{% if output.hsts_support == 1 %}YES{% else %}NO{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>IP in URL</td>
+                            <td>{% if output.ip_present == 1 %}YES{% else %}NO{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>Redirects</td>
+                            <td>{% if output.url_redirects == 0 %}NO{% else %}{% for value in output.url_redirects
+                                %}{{ value }} {% endfor %}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>Domain IP</td>
+                            <td>{{output.ip}}</td>
+                        </tr>
+                        <tr>
+                            <td>Long URL</td>
+                            <td>{% if output.too_long_url == 1 %}YES{% else %}NO{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>Deep URL</td>
+                            <td>{% if output.too_deep_url == 1 %}YES{% else %}NO{% endif %}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            {% if output.ssl != 0 %}
+            <div class="result-section">
+                <h3 class="section-title">SSL Certificate</h3>
+                <table class="table-view">
+                    <thead>
+                        <tr>
+                            <th>Property</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for key, value in output.ssl.items() %}
+                        <tr>
+                            <td>{{ key }}</td>
+                            <td>{{ value }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}
+
+            <div class="result-section">
+                <h3 class="section-title">WHOIS Data</h3>
+                {% if output.whois %}
+                <table class="table-view">
+                    <thead>
+                        <tr>
+                            <th>Property</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for key, value in output.whois.items() %}
+                        <tr>
+                            <td>{{ key }}</td>
+                            <td>{{ value }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <p>WHOIS data not available.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        {% else %}
+        <div class="result-values">
+            <div>{{output.url}}</div>
+            <div style="margin-top: 8px; color: #d32f2f;">{{output.msg}}</div>
+        </div>
+        {% endif %}
     </div>
     {% endif %}
-</div>
-
-<!-- Particle.js -->
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-<script>
-    particlesJS("particles-js", {
-        particles: {
-            number: { value: 80, density: { enable: true, value_area: 800 } },
-            color: { value: "#333" },
-            shape: { type: "circle" },
-            opacity: { value: 0.5, random: true },
-            size: { value: 3, random: true },
-            line_linked: { enable: true, distance: 150, color: "#333", opacity: 0.4, width: 1 },
-            move: { enable: true, speed: 3 }
-        },
-        interactivity: {
-            detect_on: "canvas",
-            events: {
-                onhover: { enable: true, mode: "repulse" },
-                onclick: { enable: true, mode: "push" }
+    {% endblock %}
+    <script>
+        // Load Particles
+        particlesJS("particles-js", {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#00f0ff" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: "#00f0ff", opacity: 0.4, width: 1 },
+                move: { enable: true, speed: 3 }
             },
-            modes: {
-                repulse: { distance: 100, duration: 0.4 },
-                push: { particles_nb: 4 }
-            }
-        },
-        retina_detect: true
-    });
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "repulse" },
+                    onclick: { enable: true, mode: "push" }
+                },
+                modes: {
+                    repulse: { distance: 100, duration: 0.4 },
+                    push: { particles_nb: 4 }
+                }
+            },
+            retina_detect: true
+        });
 
-    function showConsole() {
-        const console = document.querySelector('.scan-console');
-        console.style.display = 'block';
-        console.innerHTML = '';
-    }
-
-    function addConsoleLine(message, percent) {
-        const console = document.querySelector('.scan-console');
-        const line = document.createElement('div');
-        line.className = 'console-line';
-        line.style.display = 'none';
-
-        if (percent !== undefined) {
-            line.innerHTML = `&gt; ${message}<span class="progress-percent"> ${percent}%</span>`;
-        } else {
-            line.textContent = `> ${message}`;
+        function showConsole() {
+            const console = document.querySelector('.scan-console');
+            console.style.display = 'block';
+            console.innerHTML = '';
         }
 
-        console.appendChild(line);
+        function addConsoleLine(message, percent) {
+            const console = document.querySelector('.scan-console');
+            const line = document.createElement('div');
+            line.className = 'console-line';
 
-        setTimeout(() => {
-            const visibleLines = console.querySelectorAll('.console-line');
-            visibleLines.forEach(el => el.style.display = 'none');
-            line.style.display = 'block';
+            if (percent !== undefined) {
+                line.innerHTML = `${message}<span class="progress-percent">${percent}%</span>`;
+            } else {
+                line.textContent = message;
+            }
+
+            console.appendChild(line);
             console.scrollTop = console.scrollHeight;
-        }, 100);
-    }
+        }
 
-    function simulateScan() {
-        showConsole();
-        const steps = [
-            ["Fetching URL...", 5],
-            ["Extracting domain...", 10],
-            ["Validating URL format...", 15],
-            ["Checking PhishTank database...", 20],
-            ["Fetching domain rank...", 30],
-            ["Fetching WHOIS information...", 40],
-            ["Checking if URL is shortened...", 50],
-            ["HSTS support: No", 60],
-            ["Checking if IP is present in URL...", 70],
-            ["IP present in URL: No", 75],
-            ["Checking URL redirection...", 80],
-            ["URL redirects: No", 85],
-            ["Checking URL length...", 90],
-            ["Too long URL: No", 95],
-            ["Checking URL depth...", 100],
-            ["Too deep URL: No"],
-            ["Fetching IP address..."],
-            ["IP address: 142.250.207.174"],
-            ["Fetching SSL certificate..."],
-            ["Generating trust score..."],
-            ["Scan completed!"]
-        ];
+        function simulateScan() {
+            showConsole();
+            const loadingBar = document.getElementById('loading-bar');
+            loadingBar.style.width = '30%';
 
-        steps.forEach((step, index) => {
-            setTimeout(() => addConsoleLine(step[0], step[1]), 500 + index * 700);
-        });
-    }
+            const steps = [
+                ["Fetching URL...", 5],
+                ["Extracting domain...", 10],
+                ["Validating URL format...", 15],
+                ["Checking PhishTank database...", 20],
+                ["Fetching domain rank...", 30],
+                ["Fetching WHOIS information...", 40],
+                ["Checking if URL is shortened...", 50],
+                ["HSTS support: No", 60],
+                ["Checking if IP is present in URL...", 70],
+                ["IP present in URL: No", 75],
+                ["Checking URL redirection...", 80],
+                ["URL redirects: No", 85],
+                ["Checking URL length...", 90],
+                ["Too long URL: No", 95],
+                ["Checking URL depth...", 100],
+                ["Too deep URL: No"],
+                ["Fetching IP address..."],
+                ["IP address: 142.250.207.174"],
+                ["Fetching SSL certificate..."],
+                ["Generating trust score..."],
+                ["Scan completed!"]
+            ];
 
-    function showLoader() {
-        document.getElementById('loader').style.display = 'block';
-    }
+            steps.forEach(([text, percent], i) => {
+                setTimeout(() => {
+                    addConsoleLine(text, percent);
+                    if (percent) {
+                        loadingBar.style.width = percent + '%';
+                    }
+                    if (text.includes("completed")) {
+                        loadingBar.style.width = '100%';
+                        setTimeout(() => loadingBar.style.width = '0%', 1500);
+                    }
+                }, i * 300);
+            });
+        }
 
-    function hideLoader() {
-        document.getElementById('loader').style.display = 'none';
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-        const form = document.querySelector('form');
-        if (form) {
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.querySelector('form');
             form.addEventListener('submit', function (e) {
                 e.preventDefault();
                 simulateScan();
-                showLoader();
 
                 const formData = new FormData(this);
                 fetch('/', {
@@ -144,13 +1292,10 @@
                 })
                     .then(response => response.text())
                     .then(html => {
-                        hideLoader();
                         const tempDiv = document.createElement('div');
                         tempDiv.innerHTML = html;
-
                         const newResult = tempDiv.querySelector('.result');
                         const currentResult = document.querySelector('.result');
-
                         if (currentResult) {
                             currentResult.replaceWith(newResult);
                         } else {
@@ -158,12 +1303,47 @@
                         }
                     })
                     .catch(error => {
-                        hideLoader();
                         console.error('Error:', error);
                         addConsoleLine(`Error: ${error.message}`);
                     });
             });
-        }
-    });
-</script>
-{% endblock %}
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+        const spinner = document.getElementById("circular-spinner");
+
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          simulateScan();
+          spinner.style.display = "flex";
+
+          const formData = new FormData(this);
+          fetch("/", {
+            method: "POST",
+            body: formData,
+          })
+            .then((response) => response.text())
+            .then((html) => {
+              spinner.style.display = "none";
+              const tempDiv = document.createElement("div");
+              tempDiv.innerHTML = html;
+              const newResult = tempDiv.querySelector(".result");
+              const currentResult = document.querySelector(".result");
+              if (currentResult) {
+                currentResult.replaceWith(newResult);
+              } else {
+                document.querySelector(".container").appendChild(newResult);
+              }
+            })
+            .catch((error) => {
+              spinner.style.display = "none";
+              console.error("Error:", error);
+              addConsoleLine(`Error: ${error.message}`);
+            });
+        });
+      });
+    </script>
+    </body>
+
+</html>

@@ -1,11 +1,132 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Soon</h1>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+<div class="extension-container" style="margin-top: 80px; padding: 20px;">
+    <!-- Main Heading -->
+    <div style="text-align: center; margin-bottom: 40px;">
+        <h2 style="font-size: 36px; color: #4CAF50; margin-bottom: 15px;">
+            <i class="fas fa-shield-alt" style="margin-right: 10px;"></i>
+            PhishNet Browser Extension
+        </h2>
+        <p style="color: #aaa; font-size: 18px; max-width: 700px; margin: 0 auto;">
+            Real-time protection against malicious websites and phishing attempts
+        </p>
+    </div>
+
+    <!-- Features Card -->
+    <div class="feature-card" style="max-width: 800px; margin: 0 auto 30px; padding: 30px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+            <!-- Left Column - Description -->
+            <div>
+                <h3 style="color: #4CAF50; margin-bottom: 20px; font-size: 24px;">
+                    <i class="fas fa-star" style="margin-right: 10px;"></i>Key Features
+                </h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 15px; display: flex; align-items: flex-start;">
+                        <i class="fas fa-search" style="color: #4CAF50; margin-right: 10px; font-size: 20px;"></i>
+                        <span>Instant URL scanning for phishing threats</span>
+                    </li>
+                    <li style="margin-bottom: 15px; display: flex; align-items: flex-start;">
+                        <i class="fas fa-bell" style="color: #4CAF50; margin-right: 10px; font-size: 20px;"></i>
+                        <span>Real-time alerts before visiting dangerous sites</span>
+                    </li>
+                    <li style="margin-bottom: 15px; display: flex; align-items: flex-start;">
+                        <i class="fas fa-lock" style="color: #4CAF50; margin-right: 10px; font-size: 20px;"></i>
+                        <span>Enhanced browsing security layer</span>
+                    </li>
+                    <li style="margin-bottom: 15px; display: flex; align-items: flex-start;">
+                        <i class="fas fa-plug" style="color: #4CAF50; margin-right: 10px; font-size: 20px;"></i>
+                        <span>Seamless browser integration</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Right Column - Visual -->
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <img src="{{ url_for('static', filename='img/phishnetextension.png') }}" 
+                     alt="Extension Preview" 
+                     style="max-width: 100%; border-radius: 8px; border: 1px solid #4CAF50;">
+                <p style="color: #aaa; margin-top: 15px; font-size: 14px;">
+                    PhishNet extension in action
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status Card -->
+    <div class="feature-card" style="max-width: 800px; margin: 0 auto; padding: 30px; text-align: center;">
+        <h3 style="color: #4CAF50; margin-bottom: 20px; font-size: 24px;">
+            <i class="fas fa-rocket" style="margin-right: 10px;"></i>Ready To Use
+        </h3>
+        
+        <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 30px;">
+            <a href="#" class="browser-btn" style="background: #4285F4;">
+                <i class="fab fa-chrome"></i> Chrome
+            </a>
+            <a href="#" class="browser-btn" style="background: #FF9500;">
+                <i class="fab fa-firefox"></i> Firefox
+            </a>
+            <a href="#" class="browser-btn" style="background: #0078D7;">
+                <i class="fab fa-edge"></i> Edge
+            </a>
+        </div>
+        
+        <p style="color: #aaa; margin-top: 30px;">
+            <i class="fas fa-info-circle" style="color: #4CAF50; margin-right: 8px;"></i>
+            Coming soon to other major browsers
+        </p>
+    </div>
+</div>
+
+<style>
+    /* Feature Card - Matches your theme */
+    .feature-card {
+        background: #1a1a1a;
+        padding: 30px;
+        border-radius: 10px;
+        border: 1px solid #2a2a2a;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        transition: all 0.4s ease;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    }
+    
+    /* Browser Buttons */
+    .browser-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 12px 25px;
+        color: white;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .browser-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+    }
+    
+    .browser-btn i {
+        margin-right: 10px;
+        font-size: 20px;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .feature-card > div {
+            grid-template-columns: 1fr !important;
+        }
+        
+        .browser-btn {
+            padding: 10px 20px;
+            font-size: 14px;
+        }
+    }
+</style>
+{% endblock %}

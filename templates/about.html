@@ -1,11 +1,199 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Soon</h1>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+<div class="manual-container" style="margin-top: 80px; padding: 20px; max-width: 1200px; margin-left: auto; margin-right: auto;">
+    <!-- Header Section -->
+    <div class="manual-header" style="text-align: center; margin-bottom: 50px;">
+        <h1 style="font-size: 36px; color: #4298d1; margin-bottom: 15px;">
+            <i class="fas fa-book" style="margin-right: 10px;"></i> PhishNet User Manual
+        </h1>
+        <p style="color: #aaa; font-size: 18px; max-width: 800px; margin: 0 auto;">
+            Learn how to stay safe from phishing attacks using PhishNet's powerful security tools
+        </p>
+    </div>
+
+    <!-- Manual Sections - Accordion Style -->
+    <div class="manual-accordion" style="max-width: 1000px; margin: 0 auto;">
+        <!-- URL Checker Section -->
+        <div class="manual-section" style="margin-bottom: 20px; border-radius: 10px; overflow: hidden;">
+            <button class="section-header" onclick="toggleSection('url-checker')" 
+                    style="width: 100%; padding: 20px; text-align: left; background: #1a1a1a; 
+                           border: 1px solid #2a2a2a; color: #6692e2; font-size: 20px; 
+                           cursor: pointer; display: flex; justify-content: space-between;">
+                <span><i class="fas fa-link" style="margin-right: 10px;"></i> URL Checker</span>
+                <i class="fas fa-chevron-down" id="url-checker-icon"></i>
+            </button>
+            <div id="url-checker-content" class="section-content" style="display: none; padding: 25px; background: #222; border: 1px solid #2a2a2a; border-top: none;">
+                <h3 style="color: #41a3d1; margin-bottom: 15px;">How to use the URL Checker:</h3>
+                <ol style="padding-left: 20px;">
+                    <li style="margin-bottom: 15px;">
+                        <strong style="color: #fff;">Step 1:</strong> Navigate to the <a href="/" style="color: #5c79d8; text-decoration: underline;">URL Checker page</a>
+                    </li>
+                    <li style="margin-bottom: 15px;">
+                        <strong style="color: #fff;">Step 2:</strong> Enter the suspicious URL in the input field
+                    </li>
+                    <li style="margin-bottom: 15px;">
+                        <strong style="color: #fff;">Step 3:</strong> Click "Check URL" to analyze
+                        <ul style="margin-top: 10px; list-style-type: disc; padding-left: 20px;">
+                            <li>✅ Domain analysis and trust score evaluation</li>
+                            <li>👁️ Live preview of the destination page</li>
+                            <li>💻 View source code for technical inspection</li>
+                        </ul>
+                    </li>
+                    <li style="margin-bottom: 15px;">
+                        <strong style="color: #fff;">Step 4:</strong> Review the detailed safety report
+                    </li>
+                </ol>
+                <div style="background: rgba(76, 175, 80, 0.1); padding: 15px; border-radius: 8px; margin-top: 20px;">
+                    <p style="margin: 0; color: #aaa;">
+                        <i class="fas fa-lightbulb" style="color: #2aaad1; margin-right: 10px;"></i>
+                        <strong>Pro Tip:</strong> Always check URLs before clicking, especially in unsolicited emails or messages
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cybersecurity News Section -->
+        <div class="manual-section" style="margin-bottom: 20px; border-radius: 10px; overflow: hidden;">
+            <button class="section-header" onclick="toggleSection('news')" 
+                    style="width: 100%; padding: 20px; text-align: left; background: #1a1a1a; 
+                           border: 1px solid #2a2a2a; color: #29a5c4; font-size: 20px; 
+                           cursor: pointer; display: flex; justify-content: space-between;">
+                <span><i class="fas fa-newspaper" style="margin-right: 10px;"></i> Cybersecurity News</span>
+                <i class="fas fa-chevron-down" id="news-icon"></i>
+            </button>
+            <div id="news-content" class="section-content" style="display: none; padding: 25px; background: #222; border: 1px solid #2a2a2a; border-top: none;">
+                <h3 style="color: #2f8dcc; margin-bottom: 15px;">Stay updated with the latest threats:</h3>
+                <ol style="padding-left: 20px;">
+                    <li style="margin-bottom: 15px;">
+                        <strong style="color: #fff;">Step 1:</strong> Go to the <a href="/newsletter" style="color: #3471cc; text-decoration: underline;">News section</a>
+                    </li>
+                    <li style="margin-bottom: 15px;">
+                        <strong style="color: #fff;">Step 2:</strong> Click "Fetch News" to get the latest updates
+                        <ul style="margin-top: 10px; list-style-type: disc; padding-left: 20px;">
+                            <li>🌐 Real-time updates from trusted sources</li>
+                            <li>📰 Curated cybersecurity headlines</li>
+                            <li>🔔 Important security alerts</li>
+                        </ul>
+                    </li>
+                    <li style="margin-bottom: 15px;">
+                        <strong style="color: #fff;">Step 3:</strong> Browse through articles to stay informed
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- AI Chatbot Section -->
+        <div class="manual-section" style="margin-bottom: 20px; border-radius: 10px; overflow: hidden;">
+            <button class="section-header" onclick="toggleSection('chatbot')" 
+                    style="width: 100%; padding: 20px; text-align: left; background: #1a1a1a; 
+                           border: 1px solid #2a2a2a; color: #217cc7; font-size: 20px; 
+                           cursor: pointer; display: flex; justify-content: space-between;">
+                <span><i class="fas fa-robot" style="margin-right: 10px;"></i> CyberGuard AI Chatbot</span>
+                <i class="fas fa-chevron-down" id="chatbot-icon"></i>
+            </button>
+            <div id="chatbot-content" class="section-content" style="display: none; padding: 25px; background: #222; border: 1px solid #2a2a2a; border-top: none;">
+                <h3 style="color: #33acd1; margin-bottom: 15px;">Get instant cybersecurity help:</h3>
+                <ol style="padding-left: 20px;">
+                    <li style="margin-bottom: 15px;">
+                        <strong style="color: #fff;">Step 1:</strong> Access the <a href="/chat" style="color: #1f9ce4; text-decoration: underline;">Chatbot page</a>
+                    </li>
+                    <li style="margin-bottom: 15px;">
+                        <strong style="color: #fff;">Step 2:</strong> Type your question in natural language
+                        <ul style="margin-top: 10px; list-style-type: disc; padding-left: 20px;">
+                            <li>💬 Ask about scams, frauds, or security best practices</li>
+                            <li>🤖 Get AI-powered, empathetic responses</li>
+                            <li>🇮🇳 India-specific cybersecurity advice</li>
+                        </ul>
+                    </li>
+                    <li style="margin-bottom: 15px;">
+                        <strong style="color: #fff;">Step 3:</strong> Follow the recommendations provided
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Chrome Extension Section -->
+        <div class="manual-section" style="margin-bottom: 20px; border-radius: 10px; overflow: hidden;">
+            <button class="section-header" onclick="toggleSection('extension')" 
+                    style="width: 100%; padding: 20px; text-align: left; background: #1a1a1a; 
+                           border: 1px solid #2a2a2a; color: #22c1dd; font-size: 20px; 
+                           cursor: pointer; display: flex; justify-content: space-between;">
+                <span><i class="fas fa-puzzle-piece" style="margin-right: 10px;"></i> Browser Extension</span>
+                <i class="fas fa-chevron-down" id="extension-icon"></i>
+            </button>
+            <div id="extension-content" class="section-content" style="display: none; padding: 25px; background: #222; border: 1px solid #2a2a2a; border-top: none;">
+                <h3 style="color: #24a5e0; margin-bottom: 15px;">Real-time protection in your browser:</h3>
+                <ol style="padding-left: 20px;">
+                    <li style="margin-bottom: 15px;">
+                        <strong style="color: #fff;">Step 1:</strong> Install from the <a href="/extension" style="color: #207eca; text-decoration: underline;">Extension page</a>
+                    </li>
+                    <li style="margin-bottom: 15px;">
+                        <strong style="color: #fff;">Step 2:</strong> Browse normally with protection enabled
+                        <ul style="margin-top: 10px; list-style-type: disc; padding-left: 20px;">
+                            <li>🔍 Automatic URL scanning</li>
+                            <li>⚠️ Instant warnings for suspicious sites</li>
+                            <li>🛡️ Continuous protection as you browse</li>
+                        </ul>
+                    </li>
+                    <li style="margin-bottom: 15px;">
+                        <strong style="color: #fff;">Step 3:</strong> Click the extension icon for detailed reports
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <div class="manual-section" style="margin-bottom: 20px; border-radius: 10px; overflow: hidden;">
+            <button class="section-header" onclick="toggleSection('about')" 
+                    style="width: 100%; padding: 20px; text-align: left; background: #1a1a1a; 
+                           border: 1px solid #2a2a2a; color: #1b84e7; font-size: 20px; 
+                           cursor: pointer; display: flex; justify-content: space-between;">
+                <span><i class="fas fa-info-circle" style="margin-right: 10px;"></i> About PhishNet</span>
+                <i class="fas fa-chevron-down" id="about-icon"></i>
+            </button>
+            <div id="about-content" class="section-content" style="display: none; padding: 25px; background: #222; border: 1px solid #2a2a2a; border-top: none;">
+                <h3 style="color: #1cb7e6; margin-bottom: 15px;">Our mission to protect you:</h3>
+                <ol style="padding-left: 20px;">
+                    <li style="margin-bottom: 15px;">
+                        <strong style="color: #fff;">Step 1:</strong> Visit the <a href="/about" style="color: #16acc7; text-decoration: underline;">About page</a>
+                    </li>
+                    <li style="margin-bottom: 15px;">
+                        <strong style="color: #fff;">Step 2:</strong> Learn about our security technology
+                        <ul style="margin-top: 10px; list-style-type: disc; padding-left: 20px;">
+                            <li>🛡️ Advanced phishing detection algorithms</li>
+                            <li>🔬 Continuous threat research</li>
+                            <li>🌍 Focused on Indian cyber threats</li>
+                        </ul>
+                    </li>
+                    <li style="margin-bottom: 15px;">
+                        <strong style="color: #fff;">Step 3:</strong> Meet the team behind PhishNet
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleSection(sectionId) {
+        const content = document.getElementById(`${sectionId}-content`);
+        const icon = document.getElementById(`${sectionId}-icon`);
+        
+        if (content.style.display === 'none') {
+            content.style.display = 'block';
+            icon.classList.remove('fa-chevron-down');
+            icon.classList.add('fa-chevron-up');
+        } else {
+            content.style.display = 'none';
+            icon.classList.remove('fa-chevron-up');
+            icon.classList.add('fa-chevron-down');
+        }
+    }
+    
+    // Open first section by default
+    document.addEventListener('DOMContentLoaded', function() {
+        toggleSection('url-checker');
+    });
+</script>
+{% endblock %}
